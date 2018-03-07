@@ -41,5 +41,6 @@ ext {
     butterknifeVersion= '8.8.1'
     permissionVersion= '3.1.0'
     glideVersion= '4.6.1'
-
+    rxAndroidVersion='2.0.2'
+    rxJavaVersion='2.1.10'
 }

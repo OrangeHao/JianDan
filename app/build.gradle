@@ -35,20 +35,29 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.android.support:multidex:1.0.2'
 
+    //BUtterKnife
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
+
+    //Permission
     compile("com.github.hotchemi:permissionsdispatcher:$rootProject.ext.permissionVersion") {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:$rootProject.ext.permissionVersion"
+
+    //Glide
     implementation "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glideVersion"
     /********************common special*******************/
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
     /******************common special***************/
     /*****************************common***********************/
 
+    //Jsoup
     compile 'org.jsoup:jsoup:1.11.2'
 }
