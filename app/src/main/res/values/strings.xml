@@ -1,4 +1,12 @@
 <resources>
+
+    <string-array name="sections">
+        <item>@string/home_title_news</item>
+        <item>@string/home_title_duanzi</item>
+        <item>@string/home_title_boring_pic</item>
+        <item>@string/home_title_happy_pic</item>
+    </string-array>
+
     <string name="app_name">JianDan</string>
     <string name="title_activity_main">MainActivity</string>
 
@@ -6,4 +14,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="home_title_news">首页</string>
+    <string name="home_title_duanzi">段子</string>
+    <string name="home_title_boring_pic">无聊图</string>
+    <string name="home_title_happy_pic">妹子图</string>
 </resources>

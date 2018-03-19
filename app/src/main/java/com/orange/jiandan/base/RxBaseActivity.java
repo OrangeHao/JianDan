@@ -2,14 +2,15 @@ package com.orange.jiandan.base;
 
 import android.os.Bundle;
 
-import com.trello.rxlifecycle2.components.RxActivity;
+
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 
 /**
  *
  */
-public abstract class RxBaseActivity extends RxActivity {
+public abstract class RxBaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

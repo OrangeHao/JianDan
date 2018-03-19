@@ -14,34 +14,51 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.orange.jiandan.R;
+import com.orange.jiandan.base.RxBaseActivity;
+import com.orange.jiandan.ui.home.HomeFragment;
+import com.orange.jiandan.utils.ToastUtil;
 
-public class MainActivity extends AppCompatActivity
+import butterknife.BindView;
+
+public class MainActivity extends RxBaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
+
+    private HomeFragment mHomeFragment;
+    private long exitTime;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    @Override
+    public void initViews(Bundle savedInstanceState) {
+        //初始化Fragment
+        initFragments();
+        //初始化侧滑菜单
+        initNavigationView();
+    }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+    private void initFragments(){
+        mHomeFragment=HomeFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container,mHomeFragment)
+                .show(mHomeFragment).commit();
+    }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+    private void initNavigationView(){
+
+    }
+
+    @Override
+    public void initToolBar() {
+
     }
 
     @Override
@@ -54,50 +71,65 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        switch (item.getItemId()){
+            case R.id.nav_camera:
+                break;
+            case R.id.nav_gallery:
+                break;
         }
+        return false;
+    }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+
+    /**
+     * 双击退出App
+     */
+    private void exitApp() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            ToastUtil.ShortToast("再按一次退出");
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+        }
+    }
+
+
+    /**
+     * 解决App重启后导致Fragment重叠的问题
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * DrawerLayout侧滑菜单开关
+     */
+    public void toggleDrawer() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            mDrawerLayout.openDrawer(GravityCompat.START);
+        }
     }
 }
