@@ -24,4 +24,5 @@ public class DuanziFragment  extends RxLazyFragment {
     public void finishCreateView(Bundle state) {
 
     }
+
 }
