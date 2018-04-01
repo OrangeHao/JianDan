@@ -63,6 +63,7 @@ dependencies {
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.0@aar'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.35'
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
+    compile 'com.jaeger.statusbarutil:library:1.5.0'
 
     //Jsoup
     compile 'org.jsoup:jsoup:1.11.2'
