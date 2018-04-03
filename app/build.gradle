@@ -67,4 +67,5 @@ dependencies {
 
     //Jsoup
     compile 'org.jsoup:jsoup:1.11.2'
+    compile 'com.jaeger.statusbarutil:library:1.5.0'
 }
