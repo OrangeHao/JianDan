@@ -21,8 +21,9 @@ public class DuanziFragment  extends RxLazyFragment {
     }
 
     @Override
-    public void finishCreateView(Bundle state) {
+    public void fetchData() {
 
     }
+
 
 }

@@ -18,22 +18,55 @@ import butterknife.Unbinder;
 /**
  *
  */
-public abstract class RxLazyFragment extends RxFragment {
-    private View parentView;
+public abstract class RxLazyFragment<T extends BasePresenter> extends RxFragment {
     private FragmentActivity activity;
-    // 标志位 标志已经初始化完成。
-    protected boolean isPrepared;
-    //标志位 fragment是否可见
-    protected boolean isVisible;
 
     private Unbinder bind;
+    protected T mPresenter;
+
+    protected boolean isViewInitiated;
+    protected boolean isVisibleToUser;
+    protected boolean isDataInitiated;
 
     public abstract
     @LayoutRes int getLayoutResId();
 
+
+    /*************         lazy load             **********************/
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        isViewInitiated = true;
+        prepareFetchData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        prepareFetchData();
+    }
+
+    public abstract void fetchData();
+
+    public boolean prepareFetchData() {
+        return prepareFetchData(false);
+    }
+
+    public boolean prepareFetchData(boolean forceUpdate) {
+        if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
+            fetchData();
+            isDataInitiated = true;
+            return true;
+        }
+        return false;
+    }
+
+    /*************          lazy load             **********************/
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
-        parentView = inflater.inflate(getLayoutResId(), container, false);
+        View parentView = inflater.inflate(getLayoutResId(), container, false);
         activity = getSupportActivity();
         return parentView;
     }
@@ -42,15 +75,11 @@ public abstract class RxLazyFragment extends RxFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bind = ButterKnife.bind(this, view);
-        finishCreateView(savedInstanceState);
+        mPresenter=createPresenter();
+        initView();
+        initRefreshLayout();
+        initRecyclerView();
     }
-
-    /**
-     * 初始化views
-     *
-     * @param state
-     */
-    public abstract void finishCreateView(Bundle state);
 
 
     @Override
@@ -80,6 +109,11 @@ public abstract class RxLazyFragment extends RxFragment {
     }
 
 
+
+    protected  T createPresenter(){
+        return null;
+    }
+
     public FragmentActivity getSupportActivity() {
         return (FragmentActivity) super.getActivity();
     }
@@ -96,57 +130,11 @@ public abstract class RxLazyFragment extends RxFragment {
     }
 
 
-    /**
-     * Fragment数据的懒加载
-     */
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
-            onVisible();
-        } else {
-            isVisible = false;
-            onInvisible();
-        }
+
+    protected void initView(){
+
     }
 
-    /**
-     * fragment显示时才加载数据
-     */
-    protected void onVisible() {
-        lazyLoad();
-    }
-
-    /**
-     * fragment懒加载方法
-     */
-    protected void lazyLoad() {
-    }
-
-    /**
-     * fragment隐藏
-     */
-    protected void onInvisible() {
-    }
-
-    /**
-     * 加载数据
-     */
-    protected void loadData() {
-    }
-
-    /**
-     * 显示进度条
-     */
-    protected void showProgressBar() {
-    }
-
-    /**
-     * 隐藏进度条
-     */
-    protected void hideProgressBar() {
-    }
 
     /**
      * 初始化recyclerView
@@ -158,17 +146,5 @@ public abstract class RxLazyFragment extends RxFragment {
      * 初始化refreshLayout
      */
     protected void initRefreshLayout() {
-    }
-
-    /**
-     * 设置数据显示
-     */
-    protected void finishTask() {
-    }
-
-
-    @SuppressWarnings("unchecked")
-    public <T extends View> T $(int id) {
-        return (T) parentView.findViewById(id);
     }
 }

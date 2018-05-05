@@ -10,21 +10,39 @@ import butterknife.ButterKnife;
 /**
  *
  */
-public abstract class RxBaseActivity extends RxAppCompatActivity {
+public abstract class RxBaseActivity<V,T extends BasePresenter> extends RxAppCompatActivity {
+
+    protected T mPresenter;
+
+    protected  T createPresenter(){
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //设置布局内容
         setContentView(getLayoutId());
-        //初始化黄油刀控件绑定框架
         ButterKnife.bind(this);
+
+        mPresenter=createPresenter();
+        if(mPresenter!=null){
+            mPresenter.attachView((V)this);
+        }
+
         //初始化控件
         initViews(savedInstanceState);
         //初始化ToolBar
         initToolBar();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
+    }
 
     /**
      * 设置布局layout
@@ -52,18 +70,6 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
     }
 
     /**
-     * 显示进度条
-     */
-    public void showProgressBar() {
-    }
-
-    /**
-     * 隐藏进度条
-     */
-    public void hideProgressBar() {
-    }
-
-    /**
      * 初始化recyclerView
      */
     public void initRecyclerView() {
@@ -73,12 +79,6 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
      * 初始化refreshLayout
      */
     public void initRefreshLayout() {
-    }
-
-    /**
-     * 设置数据显示
-     */
-    public void finishTask() {
     }
 
 }
