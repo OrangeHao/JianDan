@@ -12,7 +12,7 @@
         android:gravity="center"
         android:padding="20dp"
         android:textSize="22sp"
-        android:text="JIanlai"
+        android:text="剑来"
         />
 
     <android.support.v7.widget.AppCompatButton
@@ -23,7 +23,18 @@
         android:gravity="center"
         android:padding="20dp"
         android:textSize="22sp"
-        android:text="GuiMi"
+        android:text="诡秘"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/yulechunqiu_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textSize="22sp"
+        android:text="娱乐春秋"
         />
 
 </LinearLayout>

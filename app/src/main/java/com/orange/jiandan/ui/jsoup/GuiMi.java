@@ -28,7 +28,7 @@ public class GuiMi {
     private final String Name_Class_chapter="chapterlist";
     private final String Name_Class_chaptertext="BookText";
 
-    public void getChapters(JianLai.DataListner listner){
+    public void getChapters(NormalBookStucture.DataListner listner){
         Observable.create(new ObservableOnSubscribe<List<Chapter>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Chapter>> e) throws Exception {
@@ -56,7 +56,7 @@ public class GuiMi {
     }
 
 
-    public void getContent(String url, JianLai.DataListner listner){
+    public void getContent(String url, NormalBookStucture.DataListner listner){
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {

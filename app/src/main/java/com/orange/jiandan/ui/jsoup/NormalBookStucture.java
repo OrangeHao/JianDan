@@ -1,6 +1,9 @@
 package com.orange.jiandan.ui.jsoup;
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.orange.jiandan.ui.jsoup.data.Books;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,23 +26,35 @@ import io.reactivex.schedulers.Schedulers;
  * created by czh on 2018/3/29
  */
 
-public class JianLai {
+public class NormalBookStucture {
 
-    private final String Url="http://www.jianlaixiaoshuo.com/";
-    private final String Name_Class_chapter="chapterlist";
-    private final String Name_Class_chaptertext="BookText";
+    private Books mBook;
+
+    public NormalBookStucture(Books books) {
+        mBook=books;
+    }
 
     public void getChapters(DataListner listner){
         Observable.create(new ObservableOnSubscribe<List<Chapter>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Chapter>> e) throws Exception {
-                Document doc = Jsoup.connect(Url)
+                Document doc = Jsoup.connect(mBook.getUrl())
                         .get();
-                Elements chapters=doc.getElementsByClass(Name_Class_chapter).select("a[href]");
-
+                Elements chapters;
+                chapters=doc.getElementsByClass(mBook.getChapter()).select("a[href]");
+                if (TextUtils.isEmpty(chapters.toString())){
+                    chapters=doc.getElementById(mBook.getChapter()).getElementsByTag("a");
+                }
                 List<Chapter> chapterList=new ArrayList<Chapter>();
-                for (Element element:chapters){
-                    chapterList.add(new Chapter(Url+element.attr("href"),element.text()));
+                Log.d("czh","get:"+chapters.get(0).toString());
+                if (mBook.isHasExtraUrl()){
+                    for (Element element:chapters){
+                        chapterList.add(new Chapter(mBook.getBaseUrl()+element.attr("href"),element.text()));
+                    }
+                }else {
+                    for (Element element:chapters){
+                        chapterList.add(new Chapter(mBook.getUrl()+element.attr("href"),element.text()));
+                    }
                 }
                 Log.d("czh","get:"+chapterList.get(0).getUrl());
                 e.onNext(chapterList);
@@ -63,7 +78,7 @@ public class JianLai {
             public void subscribe(ObservableEmitter<String> e) throws Exception {
                 Document doc = Jsoup.connect(url)
                         .get();
-                Element sections=doc.getElementById(Name_Class_chaptertext);
+                Element sections=doc.getElementById(mBook.getChaptertext());
 //                String content=tagfilter(sections.toString());
                 String content=sections.toString();
                 Log.d("czh",content);

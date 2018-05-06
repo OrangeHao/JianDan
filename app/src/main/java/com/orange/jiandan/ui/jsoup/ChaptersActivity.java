@@ -1,5 +1,6 @@
 package com.orange.jiandan.ui.jsoup;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,10 @@ import android.view.WindowManager;
 
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.jaeger.library.StatusBarUtil;
 import com.orange.jiandan.R;
+import com.orange.jiandan.ui.jsoup.data.Books;
+import com.orange.jiandan.ui.jsoup.data.JianLaiLe;
+import com.orange.jiandan.ui.jsoup.data.YuLeChunQiu;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,13 +23,22 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ChaptersActivity extends AppCompatActivity {
 
     @BindView(R.id.chapter_rv)
     RecyclerView chapterRv;
+    private static final String BOOK="book";
 
-    private List<Chapter> chapterList=new ArrayList<Chapter>();
+    private final List<Chapter> chapterList=new ArrayList<Chapter>();
+    private ChapterListAdapter mAdapter;
+    
+    public static void start(Context context, Books books) {
+        Intent starter = new Intent(context, ChaptersActivity.class);
+        starter.putExtra(BOOK,books);
+        context.startActivity(starter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,21 +58,19 @@ public class ChaptersActivity extends AppCompatActivity {
     }
 
     private void initData(){
-        new JianLai().getChapters(new JianLai.DataListner() {
+        new NormalBookStucture(getIntent().getParcelableExtra(BOOK)).getChapters(new NormalBookStucture.DataListner() {
             @Override
             public void getChapters(List<Chapter> list) {
                 chapterList.addAll(list);
                 Collections.reverse(chapterList);
                 chapterRv.setLayoutManager(new LinearLayoutManager(ChaptersActivity.this));
-                ChapterListAdapter adapter=new ChapterListAdapter(R.layout.item_chapter_list,chapterList);
-                chapterRv.setAdapter(adapter);
+                mAdapter=new ChapterListAdapter(R.layout.item_chapter_list,chapterList);
+                chapterRv.setAdapter(mAdapter);
 
-                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        Log.d("czh",chapterList.get(position).getTitle());
-                        startActivity(new Intent(ChaptersActivity.this,ChapterTextActivity.class)
-                                .putExtra("url",chapterList.get(position).getUrl()));
+                        ChapterTextActivity.start(ChaptersActivity.this,chapterList.get(position).getUrl(),getIntent().getParcelableExtra(BOOK));
                     }
                 });
             }
@@ -70,6 +80,17 @@ public class ChaptersActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @OnClick({R.id.sort})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.sort:
+                Collections.reverse(chapterList);
+                mAdapter.notifyDataSetChanged();
+                break;
+        }
     }
 
 

@@ -7,6 +7,9 @@ import android.view.View;
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.RxLazyFragment;
 import com.orange.jiandan.ui.jsoup.ChaptersActivity;
+import com.orange.jiandan.ui.jsoup.data.GuiMi;
+import com.orange.jiandan.ui.jsoup.data.JianLaiLe;
+import com.orange.jiandan.ui.jsoup.data.YuLeChunQiu;
 
 import butterknife.OnClick;
 
@@ -30,14 +33,17 @@ public class NewFragment extends RxLazyFragment{
 
     }
 
-    @OnClick({R.id.jianlai_btn,R.id.guimi_btn})
+    @OnClick({R.id.jianlai_btn,R.id.guimi_btn,R.id.yulechunqiu_btn})
     public void jianLaiOnclick(View view){
         switch (view.getId()){
             case R.id.jianlai_btn:
-                startActivity(new Intent(getActivity(), ChaptersActivity.class));
+                ChaptersActivity.start(getActivity(),new JianLaiLe());
                 break;
             case R.id.guimi_btn:
-
+                ChaptersActivity.start(getActivity(),new GuiMi());
+                break;
+            case R.id.yulechunqiu_btn:
+                ChaptersActivity.start(getActivity(),new YuLeChunQiu());
                 break;
         }
     }
