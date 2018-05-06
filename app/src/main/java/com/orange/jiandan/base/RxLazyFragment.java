@@ -1,6 +1,7 @@
 package com.orange.jiandan.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.FragmentActivity;
@@ -17,33 +18,26 @@ import butterknife.Unbinder;
 /**
  *
  */
-public abstract class RxLazyFragment extends RxFragment {
-    private View parentView;
+public abstract class RxLazyFragment<T extends BasePresenter> extends RxFragment {
     private FragmentActivity activity;
-    //标志位 fragment是否可见
+
+    private Unbinder bind;
+    protected T mPresenter;
+
     protected boolean isViewInitiated;
     protected boolean isVisibleToUser;
     protected boolean isDataInitiated;
 
-    private Unbinder bind;
-
     public abstract
     @LayoutRes int getLayoutResId();
 
-    public abstract void initView(Bundle state);
 
+    /*************         lazy load             **********************/
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
-        parentView = inflater.inflate(getLayoutResId(), container, false);
-        activity = getActivity();
-        return parentView;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        bind = ButterKnife.bind(this, view);
-        initView(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        isViewInitiated = true;
+        prepareFetchData();
     }
 
     @Override
@@ -68,6 +62,31 @@ public abstract class RxLazyFragment extends RxFragment {
         return false;
     }
 
+    /*************          lazy load             **********************/
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
+        View parentView = inflater.inflate(getLayoutResId(), container, false);
+        activity = getSupportActivity();
+        return parentView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        bind = ButterKnife.bind(this, view);
+        mPresenter=createPresenter();
+        initView();
+        initRefreshLayout();
+        initRecyclerView();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -90,4 +109,42 @@ public abstract class RxLazyFragment extends RxFragment {
     }
 
 
+
+    protected  T createPresenter(){
+        return null;
+    }
+
+    public FragmentActivity getSupportActivity() {
+        return (FragmentActivity) super.getActivity();
+    }
+
+
+    public android.app.ActionBar getSupportActionBar() {
+        return getSupportActivity().getActionBar();
+    }
+
+
+    public Context getApplicationContext() {
+        return this.activity == null ? (getActivity() == null ?
+                null : getActivity().getApplicationContext()) : this.activity.getApplicationContext();
+    }
+
+
+
+    protected void initView(){
+
+    }
+
+
+    /**
+     * 初始化recyclerView
+     */
+    protected void initRecyclerView() {
+    }
+
+    /**
+     * 初始化refreshLayout
+     */
+    protected void initRefreshLayout() {
+    }
 }

@@ -26,12 +26,21 @@ public class NewFragment extends RxLazyFragment{
     }
 
     @Override
-    public void initView(Bundle state) {
+    public void fetchData() {
 
     }
 
-    @OnClick(R.id.jianlai_btn)
+    @OnClick({R.id.jianlai_btn,R.id.guimi_btn})
     public void jianLaiOnclick(View view){
-        startActivity(new Intent(getActivity(), ChaptersActivity.class));
+        switch (view.getId()){
+            case R.id.jianlai_btn:
+                startActivity(new Intent(getActivity(), ChaptersActivity.class));
+                break;
+            case R.id.guimi_btn:
+
+                break;
+        }
     }
+
+
 }

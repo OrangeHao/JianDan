@@ -39,7 +39,12 @@ public class HomeFragment extends RxLazyFragment {
     }
 
     @Override
-    public void initView(Bundle state) {
+    public void fetchData() {
+
+    }
+
+    @Override
+    protected void initView() {
         initViewpager();
     }
 
