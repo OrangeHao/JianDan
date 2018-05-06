@@ -21,7 +21,7 @@ public class HappyPicFragmnet extends RxLazyFragment {
     }
 
     @Override
-    public void finishCreateView(Bundle state) {
+    public void initView(Bundle state) {
 
     }
 }

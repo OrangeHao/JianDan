@@ -1,7 +1,6 @@
 package com.orange.jiandan.base;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.FragmentActivity;
@@ -21,20 +20,22 @@ import butterknife.Unbinder;
 public abstract class RxLazyFragment extends RxFragment {
     private View parentView;
     private FragmentActivity activity;
-    // 标志位 标志已经初始化完成。
-    protected boolean isPrepared;
     //标志位 fragment是否可见
-    protected boolean isVisible;
+    protected boolean isViewInitiated;
+    protected boolean isVisibleToUser;
+    protected boolean isDataInitiated;
 
     private Unbinder bind;
 
     public abstract
     @LayoutRes int getLayoutResId();
 
+    public abstract void initView(Bundle state);
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         parentView = inflater.inflate(getLayoutResId(), container, false);
-        activity = getSupportActivity();
+        activity = getActivity();
         return parentView;
     }
 
@@ -42,20 +43,29 @@ public abstract class RxLazyFragment extends RxFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bind = ButterKnife.bind(this, view);
-        finishCreateView(savedInstanceState);
+        initView(savedInstanceState);
     }
 
-    /**
-     * 初始化views
-     *
-     * @param state
-     */
-    public abstract void finishCreateView(Bundle state);
-
-
     @Override
-    public void onResume() {
-        super.onResume();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        prepareFetchData();
+    }
+
+    public abstract void fetchData();
+
+    public boolean prepareFetchData() {
+        return prepareFetchData(false);
+    }
+
+    public boolean prepareFetchData(boolean forceUpdate) {
+        if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
+            fetchData();
+            isDataInitiated = true;
+            return true;
+        }
+        return false;
     }
 
 
@@ -80,95 +90,4 @@ public abstract class RxLazyFragment extends RxFragment {
     }
 
 
-    public FragmentActivity getSupportActivity() {
-        return (FragmentActivity) super.getActivity();
-    }
-
-
-    public android.app.ActionBar getSupportActionBar() {
-        return getSupportActivity().getActionBar();
-    }
-
-
-    public Context getApplicationContext() {
-        return this.activity == null ? (getActivity() == null ?
-                null : getActivity().getApplicationContext()) : this.activity.getApplicationContext();
-    }
-
-
-    /**
-     * Fragment数据的懒加载
-     */
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
-            onVisible();
-        } else {
-            isVisible = false;
-            onInvisible();
-        }
-    }
-
-    /**
-     * fragment显示时才加载数据
-     */
-    protected void onVisible() {
-        lazyLoad();
-    }
-
-    /**
-     * fragment懒加载方法
-     */
-    protected void lazyLoad() {
-    }
-
-    /**
-     * fragment隐藏
-     */
-    protected void onInvisible() {
-    }
-
-    /**
-     * 加载数据
-     */
-    protected void loadData() {
-    }
-
-    /**
-     * 显示进度条
-     */
-    protected void showProgressBar() {
-    }
-
-    /**
-     * 隐藏进度条
-     */
-    protected void hideProgressBar() {
-    }
-
-    /**
-     * 初始化recyclerView
-     */
-    protected void initRecyclerView() {
-    }
-
-    /**
-     * 初始化refreshLayout
-     */
-    protected void initRefreshLayout() {
-    }
-
-    /**
-     * 设置数据显示
-     */
-    protected void finishTask() {
-    }
-
-
-    @SuppressWarnings("unchecked")
-    public <T extends View> T $(int id) {
-        return (T) parentView.findViewById(id);
-    }
 }
