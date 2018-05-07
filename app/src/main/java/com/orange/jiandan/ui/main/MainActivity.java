@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void initViews(Bundle savedInstanceState) {
+    protected void initView() {
         //初始化Fragment
         initFragments();
         //初始化侧滑菜单
@@ -46,11 +46,6 @@ public class MainActivity extends BaseActivity
     }
 
     private void initNavigationView(){
-
-    }
-
-    @Override
-    public void initToolBar() {
 
     }
 

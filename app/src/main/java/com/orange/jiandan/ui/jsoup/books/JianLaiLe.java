@@ -1,4 +1,4 @@
-package com.orange.jiandan.ui.jsoup.data;
+package com.orange.jiandan.ui.jsoup.books;
 
 import android.os.Parcel;
 
@@ -6,7 +6,7 @@ import android.os.Parcel;
  * created by czh on 2018/5/6
  */
 
-public class JianLaiLe extends Books{
+public class JianLaiLe extends Book {
 
     public JianLaiLe() {
         this.setUrl("http://www.jianlaixiaoshuo.com/");

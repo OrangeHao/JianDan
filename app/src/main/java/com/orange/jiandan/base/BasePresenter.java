@@ -60,9 +60,9 @@ public abstract class BasePresenter<V> {
         return mViewRef != null ? mViewRef.get() : null;
     }
 
-    protected abstract void subscribe();
+    public abstract void subscribe();
 
-    protected  void unsubscribe(){
+    public  void unsubscribe(){
         mCompositeDisposable.clear();
     };
 

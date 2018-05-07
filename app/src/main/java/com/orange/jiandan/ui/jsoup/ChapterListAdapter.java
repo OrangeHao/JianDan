@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.orange.jiandan.R;
+import com.orange.jiandan.ui.jsoup.bean.Chapter;
 
 import java.util.List;
 

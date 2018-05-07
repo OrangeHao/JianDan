@@ -3,7 +3,8 @@ package com.orange.jiandan.ui.jsoup;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.orange.jiandan.ui.jsoup.data.Books;
+import com.orange.jiandan.ui.jsoup.bean.Chapter;
+import com.orange.jiandan.ui.jsoup.books.Book;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,10 +29,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NormalBookStucture {
 
-    private Books mBook;
+    private Book mBook;
 
-    public NormalBookStucture(Books books) {
-        mBook=books;
+    public NormalBookStucture(Book book) {
+        mBook= book;
     }
 
     public void getChapters(DataListner listner){

@@ -1,4 +1,4 @@
-package com.orange.jiandan.ui.jsoup.data;
+package com.orange.jiandan.ui.jsoup.books;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * created by czh on 2018/5/6
  */
 
-public class Books implements Parcelable {
+public class Book implements Parcelable {
 
     protected String url;
     protected String baseUrl;
@@ -69,10 +69,10 @@ public class Books implements Parcelable {
         dest.writeByte(this.hasExtraUrl ? (byte) 1 : (byte) 0);
     }
 
-    public Books() {
+    public Book() {
     }
 
-    protected Books(Parcel in) {
+    protected Book(Parcel in) {
         this.url = in.readString();
         this.baseUrl = in.readString();
         this.chapter = in.readString();

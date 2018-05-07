@@ -1,11 +1,11 @@
-package com.orange.jiandan.ui.jsoup.data;
+package com.orange.jiandan.ui.jsoup.books;
 
 import android.os.Parcel;
 
 /**
  * created by czh on 2018/5/6
  */
-public class GuiMi extends Books{
+public class GuiMi extends Book {
 
     public GuiMi() {
         this.setUrl("http://www.bequge.com/0_124/");

@@ -1,4 +1,4 @@
-package com.orange.jiandan.ui.jsoup.data;
+package com.orange.jiandan.ui.jsoup.books;
 
 import android.os.Parcel;
 
@@ -6,7 +6,7 @@ import android.os.Parcel;
  * created by czh on 2018/5/7
  */
 
-public class YuLeChunQiu extends Books{
+public class YuLeChunQiu extends Book {
 
     public YuLeChunQiu() {
         this.setUrl("https://www.booktxt.net/7_7067/");

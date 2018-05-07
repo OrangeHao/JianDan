@@ -1,4 +1,4 @@
-package com.orange.jiandan.ui.jsoup;
+package com.orange.jiandan.ui.jsoup.bean;
 
 /**
  * created by czh on 2018/3/29

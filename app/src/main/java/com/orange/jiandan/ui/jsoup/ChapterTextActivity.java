@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
 import com.orange.jiandan.R;
-import com.orange.jiandan.ui.jsoup.data.Books;
+import com.orange.jiandan.ui.jsoup.bean.Chapter;
+import com.orange.jiandan.ui.jsoup.books.Book;
 
 import java.util.List;
 
@@ -24,9 +25,9 @@ public class ChapterTextActivity extends AppCompatActivity {
 
     private static final String BOOK="book";
 
-    public static void start(Context context, String url, Books books) {
+    public static void start(Context context, String url, Book book) {
         Intent starter = new Intent(context, ChapterTextActivity.class);
-        starter.putExtra(BOOK,books);
+        starter.putExtra(BOOK, book);
         starter.putExtra("url",url);
         context.startActivity(starter);
     }
