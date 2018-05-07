@@ -1,23 +1,17 @@
 package com.orange.jiandan.ui.home;
 
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.orange.jiandan.R;
-import com.orange.jiandan.base.RxLazyFragment;
+import com.orange.jiandan.base.BaseLazyFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  */
-public class HomeFragment extends RxLazyFragment {
+public class HomeFragment extends BaseLazyFragment {
 
 
     @BindView(R.id.sliding_tabs)

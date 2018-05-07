@@ -1,11 +1,9 @@
 package com.orange.jiandan.ui.home;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 
 import com.orange.jiandan.R;
-import com.orange.jiandan.base.RxLazyFragment;
+import com.orange.jiandan.base.BaseLazyFragment;
 import com.orange.jiandan.ui.jsoup.ChaptersActivity;
 import com.orange.jiandan.ui.jsoup.data.GuiMi;
 import com.orange.jiandan.ui.jsoup.data.JianLaiLe;
@@ -17,7 +15,7 @@ import butterknife.OnClick;
  * created by czh on 2018-03-19
  */
 
-public class NewFragment extends RxLazyFragment{
+public class NewFragment extends BaseLazyFragment {
 
     public static NewFragment newInstance() {
         return new NewFragment();

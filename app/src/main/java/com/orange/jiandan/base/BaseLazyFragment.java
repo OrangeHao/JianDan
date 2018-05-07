@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import butterknife.Unbinder;
 /**
  *
  */
-public abstract class RxLazyFragment<T extends BasePresenter> extends RxFragment {
+public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment {
     private FragmentActivity activity;
 
     private Unbinder bind;
@@ -81,12 +82,13 @@ public abstract class RxLazyFragment<T extends BasePresenter> extends RxFragment
         initRecyclerView();
     }
 
-
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onPause() {
+        super.onPause();
+        if (mPresenter!=null){
+            mPresenter.unsubscribe();
+        }
     }
-
 
     @Override
     public void onDestroyView() {

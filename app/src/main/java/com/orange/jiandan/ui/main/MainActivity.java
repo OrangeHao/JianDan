@@ -1,26 +1,19 @@
 package com.orange.jiandan.ui.main;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.orange.jiandan.R;
-import com.orange.jiandan.base.RxBaseActivity;
+import com.orange.jiandan.base.BaseActivity;
 import com.orange.jiandan.ui.home.HomeFragment;
 import com.orange.jiandan.utils.ToastUtil;
 
 import butterknife.BindView;
 
-public class MainActivity extends RxBaseActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.drawer_layout)

@@ -1,6 +1,7 @@
 package com.orange.jiandan.base;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -10,7 +11,7 @@ import butterknife.ButterKnife;
 /**
  *
  */
-public abstract class RxBaseActivity<V,T extends BasePresenter> extends RxAppCompatActivity {
+public abstract class BaseActivity<V,T extends BasePresenter> extends AppCompatActivity {
 
     protected T mPresenter;
 
@@ -29,10 +30,9 @@ public abstract class RxBaseActivity<V,T extends BasePresenter> extends RxAppCom
             mPresenter.attachView((V)this);
         }
 
-        //初始化控件
-        initViews(savedInstanceState);
-        //初始化ToolBar
-        initToolBar();
+        initView();
+        initRecyclerView();
+        initRefreshLayout();
     }
 
 
@@ -41,6 +41,7 @@ public abstract class RxBaseActivity<V,T extends BasePresenter> extends RxAppCom
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView();
+            mPresenter.unsubscribe();
         }
     }
 
@@ -51,34 +52,25 @@ public abstract class RxBaseActivity<V,T extends BasePresenter> extends RxAppCom
      */
     public abstract int getLayoutId();
 
-    /**
-     * 初始化views
-     *
-     * @param savedInstanceState
-     */
-    public abstract void initViews(Bundle savedInstanceState);
 
-    /**
-     * 初始化toolbar
-     */
-    public abstract void initToolBar();
+    protected void initView(){ }
 
     /**
      * 加载数据
      */
-    public void loadData() {
+    protected void loadData() {
     }
 
     /**
      * 初始化recyclerView
      */
-    public void initRecyclerView() {
+    protected void initRecyclerView() {
     }
 
     /**
      * 初始化refreshLayout
      */
-    public void initRefreshLayout() {
+    protected void initRefreshLayout() {
     }
 
 }

@@ -35,6 +35,7 @@ public class NormalBookStucture {
     }
 
     public void getChapters(DataListner listner){
+
         Observable.create(new ObservableOnSubscribe<List<Chapter>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Chapter>> e) throws Exception {

@@ -16,23 +16,30 @@
 
 package com.orange.jiandan.base;
 
+import android.support.annotation.NonNull;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Presenter基类  可用可不用
  * @param <V>
  */
-public class BasePresenter<V> {
+public abstract class BasePresenter<V> {
 
 
-    public RxBaseActivity mContext;
-
-    public BasePresenter(RxBaseActivity context) {
-        mContext = context;
-    }
-
+    public BaseActivity mContext;
     protected Reference<V> mViewRef;
+    @NonNull
+    protected CompositeDisposable mCompositeDisposable;
+
+
+    public BasePresenter(BaseActivity context) {
+        mContext = context;
+        mCompositeDisposable = new CompositeDisposable();
+    }
 
     public void attachView(V view) {
         mViewRef = new WeakReference<V>(view);
@@ -52,5 +59,11 @@ public class BasePresenter<V> {
     public V getView() {
         return mViewRef != null ? mViewRef.get() : null;
     }
+
+    protected abstract void subscribe();
+
+    protected  void unsubscribe(){
+        mCompositeDisposable.clear();
+    };
 
 }
