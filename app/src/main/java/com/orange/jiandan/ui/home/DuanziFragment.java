@@ -38,6 +38,5 @@ public class DuanziFragment extends BaseLazyFragment {
 
     @OnClick(R.id.test_btn)
     public void onViewClicked() {
-        ContentActivity.start(getActivity());
     }
 }

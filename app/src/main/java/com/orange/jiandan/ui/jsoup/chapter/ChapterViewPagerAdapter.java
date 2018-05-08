@@ -2,8 +2,12 @@ package com.orange.jiandan.ui.jsoup.chapter;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.orange.jiandan.R;
+import com.orange.jiandan.ui.jsoup.bean.Chapter;
 
 import java.util.List;
 
@@ -11,15 +15,16 @@ import java.util.List;
  * created by czh on 2018/5/7
  */
 public class ChapterViewPagerAdapter extends PagerAdapter{
-    private List<View> list_view;
+    private List<Chapter> list;
+    private View mCurrentView;
 
-    public ChapterViewPagerAdapter(List<View> list_view) {
-        this.list_view = list_view;
+    public ChapterViewPagerAdapter(List<Chapter> list) {
+        this.list = list;
     }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return list.size();
     }
 
     @Override
@@ -29,12 +34,25 @@ public class ChapterViewPagerAdapter extends PagerAdapter{
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        container.addView(list_view.get(position % list_view.size()));
-        return list_view.get(position % list_view.size());
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_chapter_content,null);
+        view.setTag(position);
+        container.addView(view);
+        return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View)object);
+    }
+
+
+    @Override
+    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        super.setPrimaryItem(container, position, object);
+        mCurrentView=(View) object;
+    }
+
+    public View getCurrentView(){
+        return mCurrentView;
     }
 }

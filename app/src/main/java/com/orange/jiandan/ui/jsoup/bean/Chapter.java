@@ -1,10 +1,12 @@
 package com.orange.jiandan.ui.jsoup.bean;
 
+import java.io.Serializable;
+
 /**
  * created by czh on 2018/3/29
  */
 
-public class Chapter {
+public class Chapter implements Serializable{
     private String url;
     private String title;
 
@@ -28,4 +30,6 @@ public class Chapter {
     public void setTitle(String title) {
         this.title = title;
     }
+
+
 }

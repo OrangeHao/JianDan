@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseLazyFragment;
-import com.orange.jiandan.ui.jsoup.ChaptersActivity;
+import com.orange.jiandan.ui.jsoup.chapter.ChaptersActivity;
 import com.orange.jiandan.ui.jsoup.books.GuiMi;
 import com.orange.jiandan.ui.jsoup.books.JianLaiLe;
 import com.orange.jiandan.ui.jsoup.books.YuLeChunQiu;

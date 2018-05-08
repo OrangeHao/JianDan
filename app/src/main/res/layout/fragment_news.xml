@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:padding="20dp"
-        android:textSize="22sp"
-        android:text="剑来"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:text="Lai"
         />
 
     <android.support.v7.widget.AppCompatButton
@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:padding="20dp"
-        android:textSize="22sp"
-        android:text="诡秘"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:text="GM"
         />
 
     <android.support.v7.widget.AppCompatButton
@@ -32,9 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:padding="20dp"
-        android:textSize="22sp"
-        android:text="娱乐春秋"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:text="YLCQ"
         />
 
 </LinearLayout>

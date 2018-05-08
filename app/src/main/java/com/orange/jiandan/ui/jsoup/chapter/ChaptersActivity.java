@@ -1,4 +1,4 @@
-package com.orange.jiandan.ui.jsoup;
+package com.orange.jiandan.ui.jsoup.chapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,13 @@ import android.view.WindowManager;
 
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jaeger.library.StatusBarUtil;
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
+import com.orange.jiandan.ui.jsoup.ChapterListAdapter;
+import com.orange.jiandan.ui.jsoup.ChapterTextActivity;
 import com.orange.jiandan.ui.jsoup.bean.Chapter;
 import com.orange.jiandan.ui.jsoup.books.Book;
-import com.orange.jiandan.ui.jsoup.chapter.ChapterListPresenter;
-import com.orange.jiandan.ui.jsoup.chapter.ChapterListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,8 +43,9 @@ public class ChaptersActivity extends BaseActivity<ChapterListView,ChapterListPr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        StatusBarUtil.setLightMode(this);
     }
 
     @Override
@@ -85,7 +87,8 @@ public class ChaptersActivity extends BaseActivity<ChapterListView,ChapterListPr
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ChapterTextActivity.start(ChaptersActivity.this,chapterList.get(position).getUrl(),getIntent().getParcelableExtra(BOOK));
+//                ChapterTextActivity.start(ChaptersActivity.this,chapterList.get(position).getUrl(),getIntent().getParcelableExtra(BOOK));
+                ContentActivity.start(mContext,getIntent().getParcelableExtra(BOOK),chapterList,position);
             }
         });
     }

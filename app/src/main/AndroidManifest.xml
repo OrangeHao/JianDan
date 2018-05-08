@@ -30,9 +30,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.jsoup.ChaptersActivity" />
+        <activity
+            android:theme="@style/ColorTranslucentTheme"
+            android:name=".ui.jsoup.chapter.ChaptersActivity" />
         <activity android:name=".ui.jsoup.ChapterTextActivity" />
-        <activity android:name=".ui.jsoup.chapter.ContentActivity"></activity>
+        <activity
+            android:theme="@style/ColorTranslucentTheme"
+            android:name=".ui.jsoup.chapter.ContentActivity"></activity>
     </application>
 
 </manifest>
