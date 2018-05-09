@@ -27,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * created by czh on 2018/5/7
  */
-public class ChapterListPresenter<ChapterListView> extends BasePresenter{
+public class ChapterListPresenter extends BasePresenter<ChapterListView> {
 
     private Book mBook;
 
@@ -68,7 +68,7 @@ public class ChapterListPresenter<ChapterListView> extends BasePresenter{
                 .subscribe(new Consumer<List<Chapter>>() {
                     @Override
                     public void accept(List<Chapter> list) throws Exception {
-                        ( (com.orange.jiandan.ui.jsoup.chapter.ChapterListView)getView()).getChapters(list);
+                        getView().getChapters(list);
                     }
                 });
         mCompositeDisposable.add(disposable);

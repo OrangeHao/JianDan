@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseLazyFragment;
+import com.orange.jiandan.ui.jsoup.books.GuiMi;
+import com.orange.jiandan.ui.jsoup.books.JianLaiLe;
+import com.orange.jiandan.ui.jsoup.books.YuLeChunQiu;
+import com.orange.jiandan.ui.jsoup.chapter.ChaptersActivity;
 import com.orange.jiandan.ui.jsoup.chapter.ContentActivity;
 
 import butterknife.ButterKnife;
@@ -36,7 +40,19 @@ public class DuanziFragment extends BaseLazyFragment {
     }
 
 
-    @OnClick(R.id.test_btn)
-    public void onViewClicked() {
+    @OnClick({R.id.jianlai_btn,R.id.guimi_btn,R.id.yulechunqiu_btn})
+    public void jianLaiOnclick(View view){
+        switch (view.getId()){
+            case R.id.jianlai_btn:
+                ChaptersActivity.start(getActivity(),new JianLaiLe());
+                break;
+            case R.id.guimi_btn:
+                ChaptersActivity.start(getActivity(),new GuiMi());
+                break;
+            case R.id.yulechunqiu_btn:
+                ChaptersActivity.start(getActivity(),new YuLeChunQiu());
+                break;
+        }
     }
+
 }

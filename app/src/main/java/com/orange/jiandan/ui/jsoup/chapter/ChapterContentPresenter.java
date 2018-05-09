@@ -27,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * created by czh on 2018/5/8
  */
-public class ChapterContentPresenter<ChapterContentView> extends BasePresenter{
+public class ChapterContentPresenter extends BasePresenter<ChapterContentView> {
 
     private Book mBook;
 
@@ -59,7 +59,7 @@ public class ChapterContentPresenter<ChapterContentView> extends BasePresenter{
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String content) throws Exception {
-                        ( (com.orange.jiandan.ui.jsoup.chapter.ChapterContentView)getView()).receivedContent(content,position);
+                        getView().receivedContent(content,position);
                     }
                 });
         mCompositeDisposable.add(disposable);

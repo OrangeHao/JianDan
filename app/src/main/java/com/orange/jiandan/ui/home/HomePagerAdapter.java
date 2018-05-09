@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.orange.jiandan.R;
+import com.orange.jiandan.ui.news.NewFragment;
 import com.orange.jiandan.ui.pictures.HappyPicFragmnet;
 
 
