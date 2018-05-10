@@ -9,5 +9,8 @@ import java.util.List;
  */
 public interface NewsView {
 
-    void getNews(List<NewsBean.PostsBean> data);
+    void getRefreshNews(List<NewsBean.PostsBean> data);
+    void getLoadMoreNews(List<NewsBean.PostsBean> data);
+
+    void getNewsFailed();
 }

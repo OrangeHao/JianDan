@@ -90,8 +90,12 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         currentItem=position;
         setBarTitle(mDataList.get(position).getTitle());
         View view=mChapterPager.findViewWithTag(position);
-        currentTextView=view.findViewById(R.id.contentText);
-        if (TextUtils.isEmpty(currentTextView.getText().toString())){
+        if(view!=null){
+            currentTextView=view.findViewById(R.id.contentText);
+            if (TextUtils.isEmpty(currentTextView.getText().toString())){
+                mPresenter.getContent(mDataList.get(position).getUrl(),position);
+            }
+        }else {
             mPresenter.getContent(mDataList.get(position).getUrl(),position);
         }
     }

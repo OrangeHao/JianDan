@@ -19,7 +19,7 @@ import butterknife.Unbinder;
 /**
  *
  */
-public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment {
+public abstract class BaseLazyFragment<V,T extends BasePresenter> extends Fragment {
     private FragmentActivity activity;
 
     private Unbinder bind;
@@ -77,6 +77,9 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
         super.onViewCreated(view, savedInstanceState);
         bind = ButterKnife.bind(this, view);
         mPresenter=createPresenter();
+        if (mPresenter != null) {
+            mPresenter.attachView((V) this);//因为之后所有的子类都要实现对应的View接口
+        }
         initView();
         initRefreshLayout();
         initRecyclerView();
@@ -94,6 +97,9 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         bind.unbind();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
     }
 
 

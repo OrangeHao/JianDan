@@ -16,12 +16,14 @@
 
 package com.orange.jiandan.base;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Presenter基类  可用可不用
@@ -30,13 +32,13 @@ import io.reactivex.disposables.CompositeDisposable;
 public abstract class BasePresenter<V> {
 
 
-    public BaseActivity mContext;
+    public Context mContext;
     protected Reference<V> mViewRef;
     @NonNull
     protected CompositeDisposable mCompositeDisposable;
 
 
-    public BasePresenter(BaseActivity context) {
+    public BasePresenter(Context context) {
         mContext = context;
         mCompositeDisposable = new CompositeDisposable();
     }
@@ -65,5 +67,11 @@ public abstract class BasePresenter<V> {
     public  void unsubscribe(){
         mCompositeDisposable.clear();
     };
+
+    public void addDisposable(Disposable disposable){
+        if (mCompositeDisposable!=null){
+            mCompositeDisposable.add(disposable);
+        }
+    }
 
 }

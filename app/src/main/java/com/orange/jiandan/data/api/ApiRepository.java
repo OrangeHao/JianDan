@@ -37,7 +37,13 @@ public class ApiRepository implements DataResource{
 
     @Override
     public Single<List<NewsBean.PostsBean>> getNews(int pageIndex) {
-        return mJianDanApi.getNews(""+pageIndex).map(bean->bean.getPosts());
+        return mJianDanApi.getNews(
+                "get_recent_posts",
+                "url,date,tags,author,title,excerpt,comment_count,comment_status,custom_fields",
+                ""+pageIndex,
+                "thumb_c,views",
+                "1")
+                .map(bean->bean.getPosts());
     }
 
 

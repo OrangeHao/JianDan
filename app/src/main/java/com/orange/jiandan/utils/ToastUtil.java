@@ -14,6 +14,26 @@ import com.orange.jiandan.app.MyApp;
  * Toast工具类
  */
 public class ToastUtil {
+
+    private static Toast mToast;
+
+    private static Toast getSingleInstance(){
+        if (mToast==null){
+            synchronized (ToastUtil.class){
+                if (mToast==null){
+                    mToast=new Toast(MyApp.getInstance());
+                    mToast.setDuration(Toast.LENGTH_LONG);
+                }
+            }
+        }
+        return mToast;
+    }
+
+    public static void showSingleToast(String message){
+        getSingleInstance().setText(message);
+        getSingleInstance().show();
+    }
+
     public static void showShort(Context context, String text) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
