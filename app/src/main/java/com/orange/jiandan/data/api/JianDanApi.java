@@ -1,6 +1,7 @@
 package com.orange.jiandan.data.api;
 
 import com.orange.jiandan.model.NewsBean;
+import com.orange.jiandan.model.PicsBean;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -23,4 +24,9 @@ public interface JianDanApi {
             @Query("dev")String dev);
 
 
+    //http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_ooxx_comments&page=1
+    @GET("http://i.jandan.net/")
+    Single<PicsBean> getNicePics(
+            @Query("oxwlxojflwblxbsapi")String way,
+            @Query("page")String page);
 }

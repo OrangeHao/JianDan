@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
 import com.orange.jiandan.ui.home.HomeFragment;
+import com.orange.jiandan.ui.jsoup.books.BooksActivity;
+import com.orange.jiandan.utils.L;
 import com.orange.jiandan.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -46,7 +48,9 @@ public class MainActivity extends BaseActivity
     }
 
     private void initNavigationView(){
+        mNavigationView.setNavigationItemSelectedListener(this);
 
+        mNavigationView.setItemIconTintList(null);
     }
 
     @Override
@@ -65,16 +69,6 @@ public class MainActivity extends BaseActivity
 //        return true;
 //    }
 //
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -82,7 +76,8 @@ public class MainActivity extends BaseActivity
         switch (item.getItemId()){
             case R.id.nav_camera:
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_books:
+                BooksActivity.start(mContext);
                 break;
         }
         return false;

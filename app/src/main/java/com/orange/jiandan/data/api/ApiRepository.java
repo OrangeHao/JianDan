@@ -2,6 +2,7 @@ package com.orange.jiandan.data.api;
 
 import com.orange.jiandan.data.DataResource;
 import com.orange.jiandan.model.NewsBean;
+import com.orange.jiandan.model.PicsBean;
 
 import java.util.List;
 
@@ -44,6 +45,15 @@ public class ApiRepository implements DataResource{
                 "thumb_c,views",
                 "1")
                 .map(bean->bean.getPosts());
+    }
+
+
+    @Override
+    public Single<List<PicsBean.CommentsBean>> getNicePics(int pageIndex) {
+        return mJianDanApi.getNicePics(
+                "jandan.get_ooxx_comments",
+                ""+pageIndex)
+                .map(bean->bean.getComments());
     }
 
 

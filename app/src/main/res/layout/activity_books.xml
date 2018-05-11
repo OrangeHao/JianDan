@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/jianlai_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:text="Lai"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/guimi_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:text="GM"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/yulechunqiu_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:text="YLCQ"
+        />
+
+
+</LinearLayout>

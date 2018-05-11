@@ -19,6 +19,9 @@ package com.orange.jiandan.base;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.orange.jiandan.data.DataResource;
+import com.orange.jiandan.data.DataResourceSwitch;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -37,10 +40,13 @@ public abstract class BasePresenter<V> {
     @NonNull
     protected CompositeDisposable mCompositeDisposable;
 
+    protected DataResource mDataRepository;
+
 
     public BasePresenter(Context context) {
         mContext = context;
         mCompositeDisposable = new CompositeDisposable();
+        mDataRepository= DataResourceSwitch.getDataResource();
     }
 
     public void attachView(V view) {

@@ -2,6 +2,7 @@ package com.orange.jiandan.ui.news;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,7 +37,6 @@ public class NewFragment extends BaseLazyFragment<NewsView,NewsPresenter> implem
 
     private final List<NewsBean.PostsBean> mDataList=new ArrayList<>();
     private NewsAdapter mAdapter;
-    private final int pageSize = 20;
     private int pageIndex = 1;
 
 
@@ -57,8 +57,8 @@ public class NewFragment extends BaseLazyFragment<NewsView,NewsPresenter> implem
 
     @Override
     public void fetchData() {
-        swipeLayout.setRefreshing(true);
-        mPresenter.loadDatas(pageIndex,true);
+//        swipeLayout.setRefreshing(true);
+//        mPresenter.loadDatas(pageIndex,true);
     }
 
     @Override
@@ -84,7 +84,14 @@ public class NewFragment extends BaseLazyFragment<NewsView,NewsPresenter> implem
             }
         },recyclerview);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerview.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         recyclerview.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
     }
 
 

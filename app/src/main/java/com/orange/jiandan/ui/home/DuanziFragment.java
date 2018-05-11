@@ -40,19 +40,4 @@ public class DuanziFragment extends BaseLazyFragment {
     }
 
 
-    @OnClick({R.id.jianlai_btn,R.id.guimi_btn,R.id.yulechunqiu_btn})
-    public void jianLaiOnclick(View view){
-        switch (view.getId()){
-            case R.id.jianlai_btn:
-                ChaptersActivity.start(getActivity(),new JianLaiLe());
-                break;
-            case R.id.guimi_btn:
-                ChaptersActivity.start(getActivity(),new GuiMi());
-                break;
-            case R.id.yulechunqiu_btn:
-                ChaptersActivity.start(getActivity(),new YuLeChunQiu());
-                break;
-        }
-    }
-
 }

@@ -21,11 +21,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class NewsPresenter extends BasePresenter<NewsView>{
 
-    private DataResource mDataRepository;
 
     public NewsPresenter(Context context) {
         super(context);
-        mDataRepository= DataResourceSwitch.getDataResource();
     }
 
     @Override

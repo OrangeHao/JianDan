@@ -18,10 +18,9 @@ package com.orange.jiandan.base;
 
 /**
  * Mvp中view基类，可用可不用
- * @param <T>
  */
-public interface BaseView<T> {
+public interface BaseView {
 
-    void setPresenter(T presenter);
+    void onFailed(Throwable e);
 
 }

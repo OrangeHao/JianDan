@@ -31,12 +31,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/ColorTranslucentTheme"
-            android:name=".ui.jsoup.chapter.ChaptersActivity" />
+            android:name=".ui.jsoup.chapter.ChaptersActivity"
+            android:theme="@style/ColorTranslucentTheme" />
         <activity android:name=".ui.jsoup.ChapterTextActivity" />
         <activity
-            android:theme="@style/ColorTranslucentTheme"
-            android:name=".ui.jsoup.chapter.ContentActivity"></activity>
+            android:name=".ui.jsoup.chapter.ContentActivity"
+            android:theme="@style/ColorTranslucentTheme" />
+        <activity android:name=".ui.jsoup.books.BooksActivity"></activity>
     </application>
 
 </manifest>
