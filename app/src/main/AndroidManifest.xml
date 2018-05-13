@@ -37,7 +37,8 @@
         <activity
             android:name=".ui.jsoup.chapter.ContentActivity"
             android:theme="@style/ColorTranslucentTheme" />
-        <activity android:name=".ui.jsoup.books.BooksActivity"></activity>
+        <activity android:name=".ui.jsoup.books.BooksActivity" />
+        <activity android:name=".ui.books.BookListActivity"></activity>
     </application>
 
 </manifest>

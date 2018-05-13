@@ -47,11 +47,15 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
                 Elements chapters;
                 chapters=doc.getElementsByClass(mBook.getChapter()).select("a[href]");
                 if (TextUtils.isEmpty(chapters.toString())){
-                    chapters=doc.getElementById(mBook.getChapter()).getElementsByTag("a");
+                    Element temp=doc.getElementById(mBook.getChapter());
+                    if (temp==null){
+                        return;
+                    }
+                    chapters=temp.getElementsByTag("a");
                 }
                 List<Chapter> chapterList=new ArrayList<Chapter>();
                 Log.d("czh","get:"+chapters.get(0).toString());
-                if (mBook.isHasExtraUrl()){
+                if (!TextUtils.isEmpty(mBook.getBaseUrl())){
                     for (Element element:chapters){
                         chapterList.add(new Chapter(mBook.getBaseUrl()+element.attr("href"),element.text()));
                     }

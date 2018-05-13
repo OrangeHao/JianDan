@@ -1,0 +1,74 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:1946123205283973948",
+      "lastPropertyId": "12:8729998313163030599",
+      "name": "BookMessage",
+      "properties": [
+        {
+          "id": "1:8306594207306629261",
+          "name": "id"
+        },
+        {
+          "id": "2:977115975025642209",
+          "name": "name"
+        },
+        {
+          "id": "3:6851060652876444810",
+          "name": "author"
+        },
+        {
+          "id": "4:6612827547461240922",
+          "name": "introduction"
+        },
+        {
+          "id": "5:5350906706114824879",
+          "name": "coverUrl"
+        },
+        {
+          "id": "6:7989784077658315387",
+          "name": "currentChapterName"
+        },
+        {
+          "id": "7:7154596460322622489",
+          "name": "currentChapterId"
+        },
+        {
+          "id": "8:3140205075218845851",
+          "name": "url"
+        },
+        {
+          "id": "9:8776627771148039434",
+          "name": "baseUrl"
+        },
+        {
+          "id": "10:4026097607414082944",
+          "name": "chapterKey"
+        },
+        {
+          "id": "11:4310569382618467614",
+          "name": "contentKey"
+        },
+        {
+          "id": "12:8729998313163030599",
+          "name": "creatTime"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:1946123205283973948",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

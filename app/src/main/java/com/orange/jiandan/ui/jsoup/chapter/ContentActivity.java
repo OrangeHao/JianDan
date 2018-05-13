@@ -3,7 +3,6 @@ package com.orange.jiandan.ui.jsoup.chapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.TextUtils;
@@ -14,12 +13,10 @@ import android.widget.TextView;
 import com.jaeger.library.StatusBarUtil;
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
-import com.orange.jiandan.base.BasePresenter;
 import com.orange.jiandan.ui.jsoup.bean.Chapter;
 import com.orange.jiandan.ui.jsoup.books.Book;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,6 +69,7 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         mAdapter=new ChapterViewPagerAdapter(mDataList);
         mChapterPager.setAdapter(mAdapter);
         mChapterPager.addOnPageChangeListener(this);
+        mChapterPager.setOffscreenPageLimit(3);
         mChapterPager.setCurrentItem(currentItem);
 
         setBarTitle(mDataList.get(currentItem).getTitle());
@@ -89,15 +87,8 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         Log.d("czh","position:"+position);
         currentItem=position;
         setBarTitle(mDataList.get(position).getTitle());
-        View view=mChapterPager.findViewWithTag(position);
-        if(view!=null){
-            currentTextView=view.findViewById(R.id.contentText);
-            if (TextUtils.isEmpty(currentTextView.getText().toString())){
-                mPresenter.getContent(mDataList.get(position).getUrl(),position);
-            }
-        }else {
-            mPresenter.getContent(mDataList.get(position).getUrl(),position);
-        }
+
+        setCurAndNextData(position);
     }
 
     @Override
@@ -108,9 +99,26 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
     @Override
     public void receivedContent(String content,int position) {
         View view=mChapterPager.findViewWithTag(position);
+        if (view==null){
+            return;
+        }
         TextView textView=view.findViewById(R.id.contentText);
         if (textView!=null){
             textView.setText(Html.fromHtml(content));
+        }
+    }
+
+    private void setCurAndNextData(int position){
+        View current=mChapterPager.findViewWithTag(position);
+        if(current!=null && TextUtils.isEmpty(((TextView)current.findViewById(R.id.contentText)).getText().toString())){
+            mPresenter.getContent(mDataList.get(position).getUrl(),position);
+        }
+        if (position+1<mDataList.size()){
+            position++;
+            View next=mChapterPager.findViewWithTag(position);
+            if(next!=null && TextUtils.isEmpty(((TextView)next.findViewById(R.id.contentText)).getText().toString())){
+                mPresenter.getContent(mDataList.get(position).getUrl(),position);
+            }
         }
     }
 }
