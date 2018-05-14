@@ -1,5 +1,7 @@
 package com.orange.jiandan.ui.books;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
 import com.orange.jiandan.model.novel.BookMessage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,8 +27,13 @@ public class BookListActivity extends BaseActivity<BookListView,BookListPresente
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
 
-    private List<BookMessage> mDatList;
+    private final List<BookMessage> mDatList=new ArrayList<>();
     private BookListAdapter mAdapter;
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, BookListActivity.class);
+        context.startActivity(starter);
+    }
 
     @Override
     public int getLayoutId() {
@@ -43,7 +51,7 @@ public class BookListActivity extends BaseActivity<BookListView,BookListPresente
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                mPresenter.getBooks();
             }
         });
     }
@@ -67,6 +75,15 @@ public class BookListActivity extends BaseActivity<BookListView,BookListPresente
 
     @Override
     public void getBooks(List<BookMessage> data) {
+        swipeLayout.setRefreshing(false);
 
+        mDatList.clear();
+        mDatList.addAll(data);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFailed(Throwable e) {
+        swipeLayout.setRefreshing(false);
     }
 }

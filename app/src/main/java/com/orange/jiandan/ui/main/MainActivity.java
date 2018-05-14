@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
+import com.orange.jiandan.ui.books.BookListActivity;
 import com.orange.jiandan.ui.home.HomeFragment;
 import com.orange.jiandan.ui.jsoup.books.BooksActivity;
 import com.orange.jiandan.utils.L;
@@ -75,6 +76,7 @@ public class MainActivity extends BaseActivity
         mDrawerLayout.closeDrawer(GravityCompat.START);
         switch (item.getItemId()){
             case R.id.nav_camera:
+                BookListActivity.start(mContext);
                 break;
             case R.id.nav_books:
                 BooksActivity.start(mContext);
