@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:selectableItemBackground"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/base_margin"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/book_cover"
+        android:layout_width="110dp"
+        android:layout_height="95dp"
+        fresco:placeholderImage="@color/gray"
+        />
+
+    <TextView
+        android:id="@+id/book_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/book_cover"
+        android:layout_marginLeft="@dimen/base_margin"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/textDefualt"
+        android:textSize="@dimen/text_size_normal"
+        tools:text="jsdjkfjajskdlfjlasjkf"
+        />
+
+    <TextView
+        android:id="@+id/book_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/book_cover"
+        android:layout_marginLeft="@dimen/base_margin"
+        android:layout_marginTop="2dp"
+        android:layout_below="@id/book_name"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/textDefualt2"
+        android:textSize="@dimen/text_size_small"
+        tools:text="jsdjkfjajskdlfjlasjkf"
+        />
+
+
+    <TextView
+        android:id="@+id/book_current_chapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/book_cover"
+        android:layout_alignBottom="@id/book_cover"
+        android:layout_marginLeft="@dimen/base_margin"
+        android:ellipsize="end"
+        android:textColor="@color/textDefualt2"
+        android:textSize="@dimen/text_size_small"
+        tools:text="jsdjkfjajskdlfjlasjkf"
+        />
+
+</RelativeLayout>

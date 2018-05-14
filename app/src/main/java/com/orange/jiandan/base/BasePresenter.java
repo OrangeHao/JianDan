@@ -40,13 +40,9 @@ public abstract class BasePresenter<V> {
     @NonNull
     protected CompositeDisposable mCompositeDisposable;
 
-    protected DataResource mDataRepository;
-
-
     public BasePresenter(Context context) {
         mContext = context;
         mCompositeDisposable = new CompositeDisposable();
-        mDataRepository= DataResourceSwitch.getDataResource();
     }
 
     public void attachView(V view) {

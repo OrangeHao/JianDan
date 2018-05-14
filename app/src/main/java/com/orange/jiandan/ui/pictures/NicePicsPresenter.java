@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.orange.jiandan.base.BasePresenter;
 import com.orange.jiandan.data.DataResource;
+import com.orange.jiandan.data.DataResourceSwitch;
 import com.orange.jiandan.model.NewsBean;
 import com.orange.jiandan.model.PicsBean;
 
@@ -20,9 +21,12 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class NicePicsPresenter extends BasePresenter<NicePicsView>{
 
+    protected DataResource mDataRepository;
+
 
     public NicePicsPresenter(Context context) {
         super(context);
+        mDataRepository= DataResourceSwitch.getDataResource();
     }
 
     @Override
