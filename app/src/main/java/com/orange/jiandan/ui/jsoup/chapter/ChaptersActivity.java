@@ -34,9 +34,9 @@ public class ChaptersActivity extends BaseActivity<ChapterListView,ChapterListPr
     private final List<Chapter> chapterList=new ArrayList<Chapter>();
     private ChapterListAdapter mAdapter;
     
-    public static void start(Context context, Book book) {
+    public static void start(Context context, long bookId) {
         Intent starter = new Intent(context, ChaptersActivity.class);
-        starter.putExtra(BOOK, book);
+        starter.putExtra(BOOK, bookId);
         context.startActivity(starter);
     }
 
@@ -55,7 +55,7 @@ public class ChaptersActivity extends BaseActivity<ChapterListView,ChapterListPr
 
     @Override
     protected ChapterListPresenter createPresenter() {
-        return new ChapterListPresenter(this,getIntent().getParcelableExtra(BOOK));
+        return new ChapterListPresenter(this,getIntent().getLongExtra(BOOK,1));
     }
 
 

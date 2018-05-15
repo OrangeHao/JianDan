@@ -20,7 +20,7 @@ public class BookListAdapter extends BaseQuickAdapter<BookMessage,BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, BookMessage item) {
-
+        helper.setText(R.id.book_name,item.getName());
     }
 
 }

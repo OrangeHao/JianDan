@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.orange.jiandan.base.BaseActivity;
 import com.orange.jiandan.base.BasePresenter;
+import com.orange.jiandan.model.novel.BookMessage;
+import com.orange.jiandan.model.novel.NovelDB;
 import com.orange.jiandan.ui.jsoup.bean.Chapter;
 import com.orange.jiandan.ui.jsoup.books.Book;
 
@@ -29,11 +31,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class ChapterListPresenter extends BasePresenter<ChapterListView> {
 
-    private Book mBook;
+    private BookMessage mBook;
 
-    public ChapterListPresenter(BaseActivity context,Book book) {
+    public ChapterListPresenter(BaseActivity context,long bookId) {
         super(context);
-        mBook=book;
+        mBook= NovelDB.BookQuertById(bookId);
     }
 
 
@@ -45,9 +47,9 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
                 Document doc = Jsoup.connect(mBook.getUrl())
                         .get();
                 Elements chapters;
-                chapters=doc.getElementsByClass(mBook.getChapter()).select("a[href]");
+                chapters=doc.getElementsByClass(mBook.getChapterKey()).select("a[href]");
                 if (TextUtils.isEmpty(chapters.toString())){
-                    Element temp=doc.getElementById(mBook.getChapter());
+                    Element temp=doc.getElementById(mBook.getChapterKey());
                     if (temp==null){
                         return;
                     }
@@ -76,6 +78,10 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
                     }
                 });
         mCompositeDisposable.add(disposable);
+    }
+
+    public void loadLocalData(){
+
     }
 
 

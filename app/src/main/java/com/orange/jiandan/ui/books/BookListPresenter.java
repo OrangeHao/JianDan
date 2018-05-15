@@ -69,17 +69,20 @@ public class BookListPresenter extends BasePresenter<BookListView>{
         L.debug("getInitBooks");
 
         BookMessage jl=new BookMessage();
+        jl.setName("剑来");
         jl.setUrl("http://www.jianlaixiaoshuo.com/");
         jl.setChapterKey("chapterlist");
         jl.setContentKey("BookText");
 
         BookMessage Gm=new BookMessage();
+        Gm.setName("诡秘之主");
         Gm.setUrl("http://www.bequge.com/0_124/");
         Gm.setBaseUrl("http://www.bequge.com");
         Gm.setChapterKey("list");
         Gm.setContentKey("content");
 
         BookMessage YLCQ=new BookMessage();
+        YLCQ.setName("娱乐春秋");
         YLCQ.setUrl("https://www.booktxt.net/7_7067/");
         YLCQ.setBaseUrl("https://www.booktxt.net");
         YLCQ.setChapterKey("list");

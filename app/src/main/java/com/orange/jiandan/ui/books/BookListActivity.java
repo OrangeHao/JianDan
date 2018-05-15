@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
 import com.orange.jiandan.model.novel.BookMessage;
+import com.orange.jiandan.ui.jsoup.chapter.ChaptersActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class BookListActivity extends BaseActivity<BookListView,BookListPresente
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                ChaptersActivity.start(mContext,mDatList.get(position).getId());
             }
         });
 

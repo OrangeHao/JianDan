@@ -28,13 +28,13 @@ public class BooksActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.jianlai_btn:
-                ChaptersActivity.start(mContext,new JianLaiLe());
+//                ChaptersActivity.start(mContext,new JianLaiLe());
                 break;
             case R.id.guimi_btn:
-                ChaptersActivity.start(mContext,new GuiMi());
+//                ChaptersActivity.start(mContext,new GuiMi());
                 break;
             case R.id.yulechunqiu_btn:
-                ChaptersActivity.start(mContext,new YuLeChunQiu());
+//                ChaptersActivity.start(mContext,new YuLeChunQiu());
                 break;
         }
     }

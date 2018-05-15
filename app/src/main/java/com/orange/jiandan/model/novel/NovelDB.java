@@ -32,7 +32,7 @@ public class NovelDB {
     public static void BookDelete(){
 
     }
-    public static BookMessage BookQuertById(int id){
+    public static BookMessage BookQuertById(long id){
         return getBookMessageBox().query().equal(BookMessage_.__ID_PROPERTY,id).build().findUnique();
     }
 
@@ -59,8 +59,8 @@ public class NovelDB {
 
     }
 
-    public static List<chapterMessage> ChapterQuertAllById(int id){
-        return getChapterMessageBox().query().build().find();
+    public static List<chapterMessage> ChapterQuertAllById(long id){
+        return getChapterMessageBox().query().equal(chapterMessage_.bookId,id).build().find();
     }
 
     public static void ChapterUpdate(chapterMessage chapter){
