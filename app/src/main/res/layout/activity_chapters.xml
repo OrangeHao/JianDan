@@ -8,12 +8,20 @@
     android:orientation="vertical"
     android:padding="12dp">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/chapter_rv"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chapter_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <Button
         android:id="@+id/sort"

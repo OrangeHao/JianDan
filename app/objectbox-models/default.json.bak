@@ -58,9 +58,37 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:5654399898867918947",
+      "lastPropertyId": "5:4572474214220751602",
+      "name": "chapterMessage",
+      "properties": [
+        {
+          "id": "1:2835745184857340564",
+          "name": "id"
+        },
+        {
+          "id": "2:8949570067181077848",
+          "name": "bookId"
+        },
+        {
+          "id": "3:5049307234862339464",
+          "name": "chapterIndex"
+        },
+        {
+          "id": "4:8206032001941644925",
+          "name": "title"
+        },
+        {
+          "id": "5:4572474214220751602",
+          "name": "url"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:1946123205283973948",
+  "lastEntityId": "2:5654399898867918947",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

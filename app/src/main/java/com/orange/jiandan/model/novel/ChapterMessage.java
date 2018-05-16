@@ -8,7 +8,7 @@ import io.objectbox.annotation.Id;
  */
 
 @Entity
-public class chapterMessage {
+public class ChapterMessage {
 
     @Id
     private long id;

@@ -10,8 +10,6 @@ import com.orange.jiandan.utils.L;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.objectbox.android.AndroidScheduler;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleObserver;
@@ -35,8 +33,12 @@ public class BookListPresenter extends BasePresenter<BookListView>{
     }
 
     public void getBooks(){
-        Single.just(getBooksFromDB())
-                .subscribeOn(Schedulers.io())
+        Single.create(new SingleOnSubscribe<List<BookMessage>>() {
+            @Override
+            public void subscribe(SingleEmitter<List<BookMessage>> emitter) {
+                emitter.onSuccess(getBooksFromDB());
+            }
+        }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<BookMessage>>() {
                     @Override
@@ -57,6 +59,7 @@ public class BookListPresenter extends BasePresenter<BookListView>{
                         getView().onFailed(e);
                     }
                 });
+
     }
 
     private List<BookMessage> getBooksFromDB(){

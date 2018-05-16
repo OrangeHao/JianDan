@@ -15,8 +15,8 @@ public class NovelDB {
         return MyApp.getBoxStore().boxFor(BookMessage.class);
     }
 
-    private static Box<chapterMessage> getChapterMessageBox(){
-        return MyApp.getBoxStore().boxFor(chapterMessage.class);
+    private static Box<ChapterMessage> getChapterMessageBox(){
+        return MyApp.getBoxStore().boxFor(ChapterMessage.class);
     }
 
     /*********************** book **************************/
@@ -47,11 +47,11 @@ public class NovelDB {
 
     /*********************** chapter **************************/
 
-    public static void ChapterAdd(chapterMessage chapter){
+    public static void ChapterAdd(ChapterMessage chapter){
         getChapterMessageBox().put(chapter);
     }
 
-    public static void ChapterAdd(List<chapterMessage> chapters){
+    public static void ChapterAdd(List<ChapterMessage> chapters){
         getChapterMessageBox().put(chapters);
     }
 
@@ -59,15 +59,15 @@ public class NovelDB {
 
     }
 
-    public static List<chapterMessage> ChapterQuertAllById(long id){
-        return getChapterMessageBox().query().equal(chapterMessage_.bookId,id).build().find();
+    public static List<ChapterMessage> ChapterQuertAllById(long id){
+        return getChapterMessageBox().query().equal(ChapterMessage_.bookId,id).build().find();
     }
 
-    public static void ChapterUpdate(chapterMessage chapter){
+    public static void ChapterUpdate(ChapterMessage chapter){
         getChapterMessageBox().put(chapter);
     }
 
-    public static void ChapterUpdate(List<chapterMessage> chapters){
+    public static void ChapterUpdate(List<ChapterMessage> chapters){
         getChapterMessageBox().put(chapters);
     }
 

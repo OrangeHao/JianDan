@@ -1,5 +1,6 @@
 package com.orange.jiandan.ui.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,13 +9,24 @@ import android.view.MenuItem;
 
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
+import com.orange.jiandan.model.novel.BookMessage;
 import com.orange.jiandan.ui.books.BookListActivity;
 import com.orange.jiandan.ui.home.HomeFragment;
 import com.orange.jiandan.ui.jsoup.books.BooksActivity;
 import com.orange.jiandan.utils.L;
 import com.orange.jiandan.utils.ToastUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleObserver;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +50,49 @@ public class MainActivity extends BaseActivity
         initFragments();
         //初始化侧滑菜单
         initNavigationView();
+
+
+//        test();
     }
+
+
+
+
+    private void test(){
+        Single.create(new SingleOnSubscribe<List<BookMessage>>() {
+            @Override
+            public void subscribe(SingleEmitter<List<BookMessage>> emitter) {
+                List<BookMessage> list=new ArrayList<>();
+                L.debug("thread:"+android.os.Process.myTid());
+                emitter.onSuccess(list);
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<BookMessage>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<BookMessage> bookMessages) {
+                        L.debug("thread:"+android.os.Process.myTid());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+
+
+
+
+
+
+
 
     private void initFragments(){
         mHomeFragment=HomeFragment.newInstance();
@@ -64,12 +118,6 @@ public class MainActivity extends BaseActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-//
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -102,6 +150,7 @@ public class MainActivity extends BaseActivity
     /**
      * 解决App重启后导致Fragment重叠的问题
      */
+    @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //super.onSaveInstanceState(outState);
