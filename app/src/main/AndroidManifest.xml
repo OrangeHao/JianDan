@@ -38,7 +38,10 @@
             android:name=".ui.jsoup.chapter.ContentActivity"
             android:theme="@style/ColorTranslucentTheme" />
         <activity android:name=".ui.jsoup.books.BooksActivity" />
-        <activity android:name=".ui.books.BookListActivity"></activity>
+        <activity android:name=".ui.books.BookListActivity" />
+        <activity
+            android:theme="@style/ColorTranslucentTheme"
+            android:name=".ui.pictures.PictureViewActivity"></activity>
     </application>
 
 </manifest>

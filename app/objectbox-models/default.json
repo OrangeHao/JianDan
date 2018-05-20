@@ -86,9 +86,29 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:3621112858811071662",
+      "lastPropertyId": "3:8032492399527888470",
+      "name": "CollectPicBean",
+      "properties": [
+        {
+          "id": "1:3877780479151892774",
+          "name": "id"
+        },
+        {
+          "id": "2:184785035364532230",
+          "name": "uri"
+        },
+        {
+          "id": "3:8032492399527888470",
+          "name": "collectTime"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:5654399898867918947",
+  "lastEntityId": "3:3621112858811071662",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

@@ -18,8 +18,6 @@ public class HomeFragment extends BaseLazyFragment {
     SlidingTabLayout mSlidingTab;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
 
     private HomePagerAdapter mHomeAdapter;
 

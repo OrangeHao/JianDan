@@ -3,7 +3,7 @@ package com.orange.jiandan.app;
 import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.orange.jiandan.model.novel.MyObjectBox;
+import com.orange.jiandan.model.MyObjectBox;
 
 import io.objectbox.BoxStore;
 
