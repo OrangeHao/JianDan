@@ -17,6 +17,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -37,6 +38,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ChapterListPresenter extends BasePresenter<ChapterListView> {
 
     private BookMessage mBook;
+    private List<ChapterMessage> mDataList=new ArrayList<>();
 
     public ChapterListPresenter(BaseActivity context,long bookId) {
         super(context);
@@ -67,13 +69,18 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
                 }
                 List<ChapterMessage> chapterList=new ArrayList<>();
                 Log.d("czh","get:"+chapters.get(0).toString());
+
+
                 if (!TextUtils.isEmpty(mBook.getBaseUrl())){
                     for (Element element:chapters){
                         ChapterMessage chapterMessage=new ChapterMessage();
                         chapterMessage.setBookId(mBook.getId());
                         chapterMessage.setUrl(mBook.getBaseUrl()+element.attr("href"));
                         chapterMessage.setTitle(element.text());
-                        chapterList.add(chapterMessage);
+                        //去重
+                        if (!haveSameData(chapterMessage,chapterList)){
+                            chapterList.add(chapterMessage);
+                        }
                     }
                 }else {
                     for (Element element:chapters){
@@ -81,15 +88,16 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
                         chapterMessage.setBookId(mBook.getId());
                         chapterMessage.setUrl(mBook.getUrl()+element.attr("href"));
                         chapterMessage.setTitle(element.text());
-                        chapterList.add(chapterMessage);
+                        //去重
+                        if (!haveSameData(chapterMessage,chapterList)){
+                            chapterList.add(chapterMessage);
+                        }
                     }
                 }
                 Log.d("czh","get:"+chapterList.get(0).getUrl());
-
-                L.debug("local size:"+chapterList.size());
-                //save to db
-                NovelDB.ChapterAdd(chapterList);
-                e.onNext(chapterList);
+                L.debug("new chapter size:"+chapterList.size());
+                updateData(chapterList,mDataList);
+                e.onNext(mDataList);
             }
         }).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -123,6 +131,7 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
                         if (chapters.size()==0){
                             loadNewData();
                         }else {
+                            mDataList.addAll(chapters);
                             getView().getChapters(chapters);
                         }
                     }
@@ -139,6 +148,107 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
     private List<ChapterMessage> loadChapters(){
         return NovelDB.ChapterQuertAllById(mBook.getId());
     }
+
+    private void updateData(List<ChapterMessage> newList,List<ChapterMessage> oldList){
+        int oldLen=oldList.size();
+        int newLen=newList.size();
+
+        //升序
+        if (!isAsc(oldList)){
+            Collections.reverse(oldList);
+        }
+        if (!isAsc(newList)){
+            Collections.reverse(newList);
+        }
+
+
+        if (newLen==oldLen){
+            return;
+        }
+
+        if (newLen<oldLen){
+            return;
+        }
+
+        for (int i=0;i<newLen;i++){
+            ChapterMessage chapter=newList.get(i);
+            boolean contains=false;
+            for (int j=0;j<oldLen;j++){
+                if (oldList.get(j).getUrl().equals(chapter.getUrl())){
+                    contains=true;
+                    break;
+                }
+            }
+            if (!contains){
+                oldList.add(chapter);
+            }
+        }
+
+        NovelDB.ChapterAdd(oldList);
+    }
+
+
+    /**
+     * 判断是否是升序
+     * @param dataList
+     * @return
+     */
+    private boolean isAsc(List<ChapterMessage> dataList){
+        if (dataList==null){
+            return true;
+        }
+        int len=dataList.size();
+        if (len==0 || len==1){
+            return true;
+        }
+        int firstChapterPosition=0;
+        for (int i=0;i<len;i++){
+            ChapterMessage chapter=dataList.get(i);
+            if (chapter.getTitle().contains("第一章")){
+                firstChapterPosition=i;
+                break;
+            }
+
+            ChapterMessage chapter2=dataList.get(len-i-1);
+            if (chapter2.getTitle().contains("第一章")){
+                firstChapterPosition=len-i-1;
+                break;
+            }
+        }
+        if (firstChapterPosition==0){
+            return true;
+        }
+        if (firstChapterPosition==len){
+            return false;
+        }
+
+        if (dataList.get(firstChapterPosition+1).getTitle().contains("第二章")){
+            return true;
+        }
+
+        if (dataList.get(firstChapterPosition-1).getTitle().contains("第二章")){
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 去重
+     * @param message
+     * @param chapters
+     * @return
+     */
+    private boolean haveSameData(ChapterMessage message,List<ChapterMessage> chapters){
+        for (ChapterMessage bean:chapters){
+            if (bean.getUrl().equals(message.getUrl())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 
 }

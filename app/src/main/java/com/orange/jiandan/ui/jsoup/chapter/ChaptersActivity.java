@@ -14,6 +14,7 @@ import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
 import com.orange.jiandan.model.novel.ChapterMessage;
 import com.orange.jiandan.ui.jsoup.ChapterListAdapter;
+import com.orange.jiandan.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,9 +99,14 @@ public class ChaptersActivity extends BaseActivity<ChapterListView, ChapterListP
     public void getChapters(List<ChapterMessage> list) {
         swipeLayout.setRefreshing(false);
 
+        if (list.size()==0){
+            ToastUtil.LongToast("no chapters");
+            return;
+        }
+
         chapterList.clear();
         chapterList.addAll(list);
-        Collections.reverse(chapterList);
+//        Collections.reverse(chapterList);
 
         mAdapter.notifyDataSetChanged();
     }
