@@ -45,6 +45,9 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
         mBook= NovelDB.BookQuertById(bookId);
     }
 
+    public BookMessage getmBook() {
+        return mBook;
+    }
 
     @Override
     public void subscribe() {
@@ -170,6 +173,8 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
             return;
         }
 
+        int count=0;
+
         for (int i=0;i<newLen;i++){
             ChapterMessage chapter=newList.get(i);
             boolean contains=false;
@@ -180,10 +185,11 @@ public class ChapterListPresenter extends BasePresenter<ChapterListView> {
                 }
             }
             if (!contains){
+                count++;
                 oldList.add(chapter);
             }
         }
-
+        L.debug("add size:"+count);
         NovelDB.ChapterAdd(oldList);
     }
 

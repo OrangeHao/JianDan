@@ -12,8 +12,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jaeger.library.StatusBarUtil;
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
+import com.orange.jiandan.model.novel.BookMessage;
 import com.orange.jiandan.model.novel.ChapterMessage;
 import com.orange.jiandan.ui.jsoup.ChapterListAdapter;
+import com.orange.jiandan.ui.jsoup.ChapterTextActivity;
 import com.orange.jiandan.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -71,15 +73,14 @@ public class ChaptersActivity extends BaseActivity<ChapterListView, ChapterListP
 
     @Override
     protected void initRecyclerView() {
-        mAdapter = new ChapterListAdapter(R.layout.item_chapter_list, chapterList);
+        mAdapter = new ChapterListAdapter(R.layout.item_chapter_list, chapterList,mPresenter.getmBook());
         chapterRv.setLayoutManager(new LinearLayoutManager(ChaptersActivity.this));
         chapterRv.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                ChapterTextActivity.start(ChaptersActivity.this,chapterList.get(position).getUrl(),getIntent().getParcelableExtra(BOOK));
-//                ContentActivity.start(mContext,getIntent().getParcelableExtra(BOOK),chapterList,position);
+                ContentActivity.start(mContext,getIntent().getLongExtra(BOOK, 1),position);
             }
         });
     }
@@ -106,13 +107,25 @@ public class ChaptersActivity extends BaseActivity<ChapterListView, ChapterListP
 
         chapterList.clear();
         chapterList.addAll(list);
-//        Collections.reverse(chapterList);
-
         mAdapter.notifyDataSetChanged();
+        gotoCurentChapter();
     }
 
     @Override
     public void onFailed(Throwable e) {
         swipeLayout.setRefreshing(false);
+    }
+
+    private void gotoCurentChapter(){
+        int position=0;
+        for (int i=0;i<chapterList.size();i++){
+            if(mPresenter.getmBook().getCurrentChapterId()==chapterList.get(i).getId()){
+                position=i;
+            }
+        }
+        if (position==0){
+            return;
+        }
+        chapterRv.scrollToPosition(position);
     }
 }
