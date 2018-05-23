@@ -13,20 +13,24 @@ import android.widget.TextView;
 import com.jaeger.library.StatusBarUtil;
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseActivity;
+import com.orange.jiandan.model.novel.BookMessage;
+import com.orange.jiandan.model.novel.ChapterMessage;
+import com.orange.jiandan.model.novel.NovelDB;
 import com.orange.jiandan.ui.jsoup.bean.Chapter;
 import com.orange.jiandan.ui.jsoup.books.Book;
+import com.orange.jiandan.utils.ToastUtil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 public class ContentActivity extends BaseActivity<ChapterContentView,ChapterContentPresenter>  implements ViewPager.OnPageChangeListener,ChapterContentView{
 
-    public static void start(Context context, Book book,List<Chapter> data,int position) {
+    public static void start(Context context, long bookId,int position) {
         Intent starter = new Intent(context, ContentActivity.class);
-        starter.putExtra("book",book);
-        starter.putExtra("data",(Serializable) data);
+        starter.putExtra("book",bookId);
         starter.putExtra("position",position);
         context.startActivity(starter);
     }
@@ -34,10 +38,10 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
     @BindView(R.id.chapter_pager)
     ViewPager mChapterPager;
 
+    private BookMessage mBook;
     private ChapterViewPagerAdapter mAdapter;
-    private List<Chapter> mDataList;
+    private List<ChapterMessage> mDataList=new ArrayList<>();
     private int currentItem;
-    private TextView currentTextView;
 
     @Override
     public int getLayoutId() {
@@ -46,7 +50,7 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
 
     @Override
     protected ChapterContentPresenter createPresenter() {
-        return new ChapterContentPresenter(this,getIntent().getParcelableExtra("book"));
+        return new ChapterContentPresenter(this,getIntent().getIntExtra("book",1));
     }
 
     @Override
@@ -59,13 +63,15 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         setToolBarScrollEnable(true);
         setBarColor(R.color.gray);
         setBarTitleColor(R.color.textDefualt2);
-//        StatusBarUtil.setTranslucent(this);
-//        StatusBarUtil.setColor(this,getResources().getColor(R.color.gray));
         StatusBarUtil.setLightMode(this);
 
+        mBook= NovelDB.BookQuertById(getIntent().getIntExtra("book",1));
         currentItem=getIntent().getIntExtra("position",0);
-        mDataList=(List<Chapter>) getIntent().getSerializableExtra("data");
 
+        mPresenter.loadLocalChapters(mBook.getId());
+    }
+
+    private void initViewPage(){
         mAdapter=new ChapterViewPagerAdapter(mDataList);
         mChapterPager.setAdapter(mAdapter);
         mChapterPager.addOnPageChangeListener(this);
@@ -74,6 +80,8 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
 
         setBarTitle(mDataList.get(currentItem).getTitle());
         mPresenter.getContent(mDataList.get(currentItem).getUrl(),currentItem);
+
+        updateCurrentChapter();
     }
 
 
@@ -88,6 +96,7 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         currentItem=position;
         setBarTitle(mDataList.get(position).getTitle());
 
+        updateCurrentChapter();
         setCurAndNextData(position);
     }
 
@@ -108,6 +117,17 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         }
     }
 
+    @Override
+    public void receivedChapters(List<ChapterMessage> chapterList) {
+        mDataList.addAll(chapterList);
+        initViewPage();
+    }
+
+    @Override
+    public void onFailed(Throwable e) {
+        ToastUtil.showSingleToast("get local chapters error:"+e);
+    }
+
     private void setCurAndNextData(int position){
         View current=mChapterPager.findViewWithTag(position);
         if(current!=null && TextUtils.isEmpty(((TextView)current.findViewById(R.id.contentText)).getText().toString())){
@@ -120,5 +140,11 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
                 mPresenter.getContent(mDataList.get(position).getUrl(),position);
             }
         }
+    }
+
+    private void updateCurrentChapter(){
+        mBook.setCurrentChapterName(mDataList.get(currentItem).getTitle());
+        mBook.setCurrentChapterId(mDataList.get(currentItem).getId());
+        NovelDB.BookUpdate(mBook);
     }
 }

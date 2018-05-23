@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.orange.jiandan.R;
+import com.orange.jiandan.model.novel.ChapterMessage;
 import com.orange.jiandan.ui.jsoup.bean.Chapter;
 
 import java.util.List;
@@ -15,10 +16,10 @@ import java.util.List;
  * created by czh on 2018/5/7
  */
 public class ChapterViewPagerAdapter extends PagerAdapter{
-    private List<Chapter> list;
+    private List<ChapterMessage> list;
     private View mCurrentView;
 
-    public ChapterViewPagerAdapter(List<Chapter> list) {
+    public ChapterViewPagerAdapter(List<ChapterMessage> list) {
         this.list = list;
     }
 
