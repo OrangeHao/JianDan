@@ -6,6 +6,7 @@ import android.util.Log;
 import com.orange.jiandan.base.BaseActivity;
 import com.orange.jiandan.base.BasePresenter;
 import com.orange.jiandan.model.novel.BookMessage;
+import com.orange.jiandan.model.novel.ChapterContent;
 import com.orange.jiandan.model.novel.ChapterMessage;
 import com.orange.jiandan.model.novel.NovelDB;
 import com.orange.jiandan.ui.jsoup.bean.Chapter;
@@ -50,16 +51,29 @@ public class ChapterContentPresenter extends BasePresenter<ChapterContentView> {
 
     }
 
-    public void getContent(String url,int position){
+    public void getContent(ChapterMessage chapterMessage,int position){
         Disposable disposable= Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
-                Document doc = Jsoup.connect(url)
-                        .get();
-                Element sections=doc.getElementById(mBook.getContentKey());
-//                String content=tagfilter(sections.toString());
-                String content=sections.toString();
-                Log.d("czh",content);
+                String content=checkSaveData(chapterMessage.getId());
+
+                if (TextUtils.isEmpty(content)){
+                    Document doc = Jsoup.connect(chapterMessage.getUrl())
+                            .get();
+                    Element sections=doc.getElementById(mBook.getContentKey());
+                    content=sections.toString();
+
+                    ChapterContent chapterContent=new ChapterContent();
+                    chapterContent.setBookId(chapterMessage.getBookId());
+                    chapterContent.setChapterId(chapterMessage.getId());
+                    chapterContent.setContent(content);
+                    chapterContent.setUrl(chapterMessage.getUrl());
+                    NovelDB.ChapterContentAdd(chapterContent);
+                    L.debug("content network,save data");
+                }else {
+                    L.debug("content local");
+                }
+
                 e.onNext(content);
             }
         }).subscribeOn(Schedulers.newThread())
@@ -71,6 +85,11 @@ public class ChapterContentPresenter extends BasePresenter<ChapterContentView> {
                     }
                 });
         mCompositeDisposable.add(disposable);
+    }
+
+    private String checkSaveData(long chapterId){
+        ChapterContent chapterContent=NovelDB.chapterContentQuertByChapterId(chapterId);
+        return chapterContent==null?"":chapterContent.getContent();
     }
 
     public void loadLocalChapters(long bookId){

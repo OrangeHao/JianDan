@@ -63,7 +63,9 @@ public class NicePicsPresenter extends BasePresenter<NicePicsView>{
     private List<String> getPicUrls(List<PicsBean.CommentsBean> data){
         List<String> temp=new ArrayList<>();
         for (PicsBean.CommentsBean bean:data){
-            temp.addAll(bean.getPics());
+            if (bean.getPics()!=null){
+                temp.addAll(bean.getPics());
+            }
         }
         return temp;
     }

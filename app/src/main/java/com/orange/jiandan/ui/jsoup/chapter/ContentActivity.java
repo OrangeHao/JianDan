@@ -28,10 +28,10 @@ import butterknife.BindView;
 
 public class ContentActivity extends BaseActivity<ChapterContentView,ChapterContentPresenter>  implements ViewPager.OnPageChangeListener,ChapterContentView{
 
-    public static void start(Context context, long bookId,int position) {
+    public static void start(Context context, long bookId,String urlOnclik) {
         Intent starter = new Intent(context, ContentActivity.class);
         starter.putExtra("book",bookId);
-        starter.putExtra("position",position);
+        starter.putExtra("urlOnclik",urlOnclik);
         context.startActivity(starter);
     }
 
@@ -66,12 +66,19 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         StatusBarUtil.setLightMode(this);
 
         mBook= NovelDB.BookQuertById(getIntent().getIntExtra("book",1));
-        currentItem=getIntent().getIntExtra("position",0);
-
         mPresenter.loadLocalChapters(mBook.getId());
     }
 
     private void initViewPage(){
+        String urlOnclik=getIntent().getStringExtra("urlOnclik");
+        int len=mDataList.size();
+        for (int i=0;i<len;i++){
+            if (mDataList.get(i).getUrl().equals(urlOnclik)){
+                currentItem=i;
+                break;
+            }
+        }
+
         mAdapter=new ChapterViewPagerAdapter(mDataList);
         mChapterPager.setAdapter(mAdapter);
         mChapterPager.addOnPageChangeListener(this);
@@ -79,7 +86,7 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         mChapterPager.setCurrentItem(currentItem);
 
         setBarTitle(mDataList.get(currentItem).getTitle());
-        mPresenter.getContent(mDataList.get(currentItem).getUrl(),currentItem);
+        mPresenter.getContent(mDataList.get(currentItem),currentItem);
 
         updateCurrentChapter();
     }
@@ -131,13 +138,13 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
     private void setCurAndNextData(int position){
         View current=mChapterPager.findViewWithTag(position);
         if(current!=null && TextUtils.isEmpty(((TextView)current.findViewById(R.id.contentText)).getText().toString())){
-            mPresenter.getContent(mDataList.get(position).getUrl(),position);
+            mPresenter.getContent(mDataList.get(position),position);
         }
         if (position+1<mDataList.size()){
             position++;
             View next=mChapterPager.findViewWithTag(position);
             if(next!=null && TextUtils.isEmpty(((TextView)next.findViewById(R.id.contentText)).getText().toString())){
-                mPresenter.getContent(mDataList.get(position).getUrl(),position);
+                mPresenter.getContent(mDataList.get(position),position);
             }
         }
     }

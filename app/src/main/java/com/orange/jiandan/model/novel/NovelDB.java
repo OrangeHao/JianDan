@@ -86,8 +86,8 @@ public class NovelDB {
         getChapterContentBox().put(chapters);
     }
 
-    public static ChapterContent chapterContentQuertByChapterId(long id){
-        return getChapterContentBox().query().equal(ChapterContent_.chapterId,id).build().findUnique();
+    public static ChapterContent chapterContentQuertByChapterId(long chapterId){
+        return getChapterContentBox().query().equal(ChapterContent_.chapterId,chapterId).build().findUnique();
     }
 
 

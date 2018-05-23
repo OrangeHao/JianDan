@@ -80,7 +80,7 @@ public class ChaptersActivity extends BaseActivity<ChapterListView, ChapterListP
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ContentActivity.start(mContext,getIntent().getLongExtra(BOOK, 1),position);
+                ContentActivity.start(mContext,getIntent().getLongExtra(BOOK, 1),chapterList.get(position).getUrl());
             }
         });
     }
