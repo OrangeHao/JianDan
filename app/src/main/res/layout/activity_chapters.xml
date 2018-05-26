@@ -20,6 +20,10 @@
             android:id="@+id/chapter_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="true"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbarThumbVertical="@drawable/ic_scroll_thumb"
             />
     </android.support.v4.widget.SwipeRefreshLayout>
 

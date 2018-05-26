@@ -91,6 +91,7 @@ public class ChaptersActivity extends BaseActivity<ChapterListView, ChapterListP
             case R.id.sort:
                 Collections.reverse(chapterList);
                 mAdapter.notifyDataSetChanged();
+                gotoCurentChapter();
                 break;
         }
     }

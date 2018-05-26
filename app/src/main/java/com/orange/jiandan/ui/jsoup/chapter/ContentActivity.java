@@ -50,7 +50,7 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
 
     @Override
     protected ChapterContentPresenter createPresenter() {
-        return new ChapterContentPresenter(this,getIntent().getIntExtra("book",1));
+        return new ChapterContentPresenter(this,getIntent().getLongExtra("book",1));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         setBarTitleColor(R.color.textDefualt2);
         StatusBarUtil.setLightMode(this);
 
-        mBook= NovelDB.BookQuertById(getIntent().getIntExtra("book",1));
+        mBook= NovelDB.BookQuertById(getIntent().getLongExtra("book",1));
         mPresenter.loadLocalChapters(mBook.getId());
     }
 
