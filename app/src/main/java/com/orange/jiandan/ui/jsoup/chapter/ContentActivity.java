@@ -117,6 +117,12 @@ public class ContentActivity extends BaseActivity<ChapterContentView,ChapterCont
         }
     }
 
+
+
+
+
+
+
     @Override
     public void receivedChapters(List<ChapterMessage> chapterList) {
         mDataList.addAll(chapterList);
