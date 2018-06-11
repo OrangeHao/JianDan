@@ -19,6 +19,10 @@ public class NovelDB {
         return MyApp.getBoxStore().boxFor(ChapterMessage.class);
     }
 
+    private static Box<ChapterContent> getChapterContentBox(){
+        return MyApp.getBoxStore().boxFor(ChapterContent.class);
+    }
+
     /*********************** book **************************/
 
     public static void BookAdd(BookMessage book){
@@ -32,6 +36,7 @@ public class NovelDB {
     public static void BookDelete(){
 
     }
+
     public static BookMessage BookQuertById(long id){
         return getBookMessageBox().query().equal(BookMessage_.__ID_PROPERTY,id).build().findUnique();
     }
@@ -70,6 +75,23 @@ public class NovelDB {
     public static void ChapterUpdate(List<ChapterMessage> chapters){
         getChapterMessageBox().put(chapters);
     }
+
+    /*********************** chapter content**************************/
+
+    public static void ChapterContentAdd(ChapterContent chapter){
+        getChapterContentBox().put(chapter);
+    }
+
+    public static void ChapterContentAdd(List<ChapterContent> chapters){
+        getChapterContentBox().put(chapters);
+    }
+
+    public static ChapterContent chapterContentQuertByChapterId(long chapterId){
+        return getChapterContentBox().query().equal(ChapterContent_.chapterId,chapterId).build().findUnique();
+    }
+
+
+    /*********************** chapter content**************************/
 
 
 

@@ -70,7 +70,8 @@ public class BookListActivity extends BaseActivity<BookListView,BookListPresente
             }
         });
 
-
+        swipeLayout.setRefreshing(true);
+        mPresenter.getBooks();
     }
 
 
