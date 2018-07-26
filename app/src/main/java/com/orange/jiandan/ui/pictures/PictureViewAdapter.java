@@ -50,6 +50,7 @@ public class PictureViewAdapter extends PagerAdapter{
 
         DraweeController draweeController = Fresco.newDraweeControllerBuilder()
                 .setUri(list.get(position))
+                .setAutoPlayAnimations(true)
                 .build();
         //加载图片
         zoomableDraweeView.setController(draweeController);
