@@ -19,4 +19,5 @@ public interface DataResource {
 
     Single<List<PicsBean.CommentsBean>> getNicePics(int pageIndex);
 
+    Single<List<PicsBean.CommentsBean>> getHotNicePics();
 }

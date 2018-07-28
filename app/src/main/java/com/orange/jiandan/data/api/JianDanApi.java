@@ -41,4 +41,9 @@ public interface JianDanApi {
     Single<PicsBean> getNicePics(
             @Query("oxwlxojflwblxbsapi")String way,
             @Query("page")String page);
+
+    //http://api.moyu.today/jandan/hot?category=ooxx
+    @GET("http://api.moyu.today/jandan/hot")
+    Single<PicsBean> getHotNicePics(
+            @Query("category")String way);
 }

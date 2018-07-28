@@ -13,4 +13,5 @@ public interface NicePicsView extends BaseView{
 
     void getRefreshDatas(List<String> data);
     void getLoadMoreDatas(List<String> data);
+    void getHotDatas(List<String> data);
 }

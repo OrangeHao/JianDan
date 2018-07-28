@@ -60,6 +60,28 @@ public class NicePicsPresenter extends BasePresenter<NicePicsView>{
                 });
     }
 
+    public void loadHotPics(){
+        mDataRepository.getHotNicePics()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<PicsBean.CommentsBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(List<PicsBean.CommentsBean> commentsBeans) {
+                        getView().getHotDatas(getPicUrls(commentsBeans));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().onFailed(e);
+                    }
+                });
+    }
+
     private List<String> getPicUrls(List<PicsBean.CommentsBean> data){
         List<String> temp=new ArrayList<>();
         for (PicsBean.CommentsBean bean:data){

@@ -66,6 +66,11 @@ public class ApiRepository implements DataResource{
                 .map(bean->bean.getComments());
     }
 
+    @Override
+    public Single<List<PicsBean.CommentsBean>> getHotNicePics() {
+        return mJianDanApi.getHotNicePics(
+                "ooxx").map(bean->bean.getComments());
+    }
 
 
 }

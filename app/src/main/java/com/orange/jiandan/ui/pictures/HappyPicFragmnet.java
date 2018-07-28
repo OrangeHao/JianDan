@@ -16,6 +16,7 @@ import com.orange.jiandan.model.CollectPicBean;
 import com.orange.jiandan.model.JianDanDB;
 import com.orange.jiandan.utils.L;
 import com.orange.jiandan.utils.MeasureTools;
+import com.orange.jiandan.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,8 @@ public class HappyPicFragmnet extends BaseLazyFragment<NicePicsView, NicePicsPre
     private NicePicsAdapter mAdapter;
     private int pageIndex = 1;
 
+    private boolean swithHot=false;
+
     public static HappyPicFragmnet newInstance() {
         return new HappyPicFragmnet();
     }
@@ -69,8 +72,14 @@ public class HappyPicFragmnet extends BaseLazyFragment<NicePicsView, NicePicsPre
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                pageIndex = 1;
-                mPresenter.loadDatas(pageIndex, true);
+                if (swithHot){
+                    pageIndex = 1;
+                    mPresenter.loadDatas(pageIndex, true);
+                    swithHot=false;
+                }else {
+                    mPresenter.loadHotPics();
+                    swithHot=true;
+                }
             }
         });
     }
@@ -121,6 +130,16 @@ public class HappyPicFragmnet extends BaseLazyFragment<NicePicsView, NicePicsPre
         mAdapter.notifyDataSetChanged();
 
         mAdapter.loadMoreComplete();
+    }
+
+    @Override
+    public void getHotDatas(List<String> data) {
+        L.debug("getHotDatas:"+data.size());
+        ToastUtil.showLong(getContext(),"HOT");
+        swipeLayout.setRefreshing(false);
+        mDataList.clear();
+        mDataList.addAll(data);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
