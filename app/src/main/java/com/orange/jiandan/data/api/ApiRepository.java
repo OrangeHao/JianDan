@@ -2,6 +2,7 @@ package com.orange.jiandan.data.api;
 
 import com.orange.jiandan.data.DataResource;
 import com.orange.jiandan.model.NewsBean;
+import com.orange.jiandan.model.NewsDetail;
 import com.orange.jiandan.model.PicsBean;
 
 import java.util.List;
@@ -45,6 +46,15 @@ public class ApiRepository implements DataResource{
                 "thumb_c,views",
                 "1")
                 .map(bean->bean.getPosts());
+    }
+
+    @Override
+    public Single<NewsDetail.PostBean> getNewsDetail(int id) {
+        return mJianDanApi.getNewsDetail(
+                "get_post",
+                ""+id,
+                "content,date,modified")
+                .map(newsBean -> newsBean.getPost());
     }
 
 

@@ -1,15 +1,12 @@
 package com.orange.jiandan.ui.news;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.orange.jiandan.R;
 import com.orange.jiandan.model.NewsBean;
-import com.orange.jiandan.utils.L;
 
 import java.util.List;
 

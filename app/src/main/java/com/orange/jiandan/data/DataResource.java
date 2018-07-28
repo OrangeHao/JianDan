@@ -1,6 +1,7 @@
 package com.orange.jiandan.data;
 
 import com.orange.jiandan.model.NewsBean;
+import com.orange.jiandan.model.NewsDetail;
 import com.orange.jiandan.model.PicsBean;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import io.reactivex.Single;
 public interface DataResource {
 
     Single<List<NewsBean.PostsBean>> getNews(int pageIndex);
+
+    Single<NewsDetail.PostBean> getNewsDetail(int id);
 
     Single<List<PicsBean.CommentsBean>> getNicePics(int pageIndex);
 

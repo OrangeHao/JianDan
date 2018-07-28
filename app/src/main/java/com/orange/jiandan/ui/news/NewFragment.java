@@ -89,7 +89,7 @@ public class NewFragment extends BaseLazyFragment<NewsView,NewsPresenter> implem
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                NewsDetailActivity.start(getActivity(),mDataList.get(position).getId());
             }
         });
     }
