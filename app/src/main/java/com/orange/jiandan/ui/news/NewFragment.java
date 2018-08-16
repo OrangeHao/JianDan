@@ -120,7 +120,7 @@ public class NewFragment extends BaseLazyFragment<NewsView,NewsPresenter> implem
 
     @Override
     public void getNewsFailed() {
-        ToastUtil.showSingleToast("request failed");
+        ToastUtil.showLong(getContext(),"request failed");
         swipeLayout.setRefreshing(false);
         mAdapter.loadMoreComplete();
     }
