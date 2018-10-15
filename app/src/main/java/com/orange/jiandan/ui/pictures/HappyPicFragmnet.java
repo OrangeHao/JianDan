@@ -90,8 +90,10 @@ public class HappyPicFragmnet extends BaseLazyFragment<NicePicsView, NicePicsPre
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                pageIndex++;
-                mPresenter.loadDatas(pageIndex, false);
+                if (!swithHot){
+                    pageIndex++;
+                    mPresenter.loadDatas(pageIndex, false);
+                }
             }
         }, recyclerview);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(), 2));

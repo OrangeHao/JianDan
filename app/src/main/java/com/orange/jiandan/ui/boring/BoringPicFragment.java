@@ -1,4 +1,4 @@
-package com.orange.jiandan.ui.home;
+package com.orange.jiandan.ui.boring;
 
 import com.orange.jiandan.R;
 import com.orange.jiandan.base.BaseLazyFragment;
